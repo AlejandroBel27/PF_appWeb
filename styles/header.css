@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(#d9d1d1, #f6cda3);
+}
+
+.header{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #091057;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 85px;
+    padding: 5px 10%;
+}
+
+.header .logo{
+    align-content: left;
+    font-size: 36px; /* Tamaño del h1 */
+    font-weight: bold; /* Negrita */
+    text-shadow: 
+        -3px -3px 0 black,  
+        3px -3px 0 black,
+        -3px 3px 0 black,
+        3px 3px 0 black;
+}
+
+.header .logo .colorAzul{
+    color: #024CAA;
+}
+
+.header .logo .colorNaranja{
+    color: #EC8305;
+}
+
+.header .nav-links{
+    list-style-type: none;
+}
+
+.header .nav-links li{
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.header .nav-links li:hover{
+    transform: scale(1.1);
+}
+
+.header .nav-links a{
+    font-size: 700;
+    color: white;
+    text-decoration: none;
+    padding: 10%;
+}
+
+.header .nav-links a:hover{
+    color: #EC8305;
+}
+
+.header a{
+    color: #EC8305;
+}
+
+.header .button{
+    background-color: #024CAA;
+    color: white;
+    padding: 15px 40px;
+    font-size: 16px;
+    border: none; 
+    border-radius: 25px; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease; 
+}
+
+.header .button:hover{
+    background-color: #002699; /* Cambia el color al pasar el ratón */
+}
+
+
