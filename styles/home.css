@@ -43,3 +43,24 @@
     -1px 1px 0px aliceblue,  /* Sombra abajo izquierda */
     1px -1px 0px aliceblue;  /* Sombra arriba derecha */
 }
+.movie-info img {
+    float: left;
+    height: 20rem;
+    width: 25rem;
+    margin-right: 2rem;
+}   
+.movie-info h2 {
+    text-align: left;
+    font-size: 80px;
+    color: #024caa;
+}
+.movie-info h3 {
+    text-align: left;
+    font-size: 45px;
+}
+.movie-info p {
+    text-align: left;
+    font-size: 22px;
+    padding-left: 2rem;
+
+}
