@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+.titleMain h1{
+    color: #024caa;;
+    font-size: 50px;
+    text-align: left;
+    padding-left: 3rem;
+    text-shadow: 
+    1px 1px 0px aliceblue,   /* Sombra abajo derecha */
+    -1px -1px 0px aliceblue, /* Sombra arriba izquierda */
+    -1px 1px 0px aliceblue,  /* Sombra abajo izquierda */
+    1px -1px 0px aliceblue;  /* Sombra arriba derecha */
+}
+.actor {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+}
+.actor img {
+    height: 25rem;
+    width: 25rem;
+    padding-bottom: 1rem;
+    padding-left: 3rem;
+    max-width: 25rem;
+    max-height: 25rem;
+}
+.actor-content h2 {
+    text-align: left;
+    color: black;
+    font-size: 25px;
+    padding-right: 2rem;
+    font: bold;
+}
+.actor-content p {
+    text-align: left;
+    color: black;
+    font-size: 25px;
+    padding-right: 2rem;
+    
+
+}
