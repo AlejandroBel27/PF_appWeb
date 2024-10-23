@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+.titleMain .colorAzul {
+    color: #024CAA;
+    text-shadow: 
+    1px 1px 0px aliceblue,   /* Sombra abajo derecha */
+    -1px -1px 0px aliceblue, /* Sombra arriba izquierda */
+    -1px 1px 0px aliceblue,  /* Sombra abajo izquierda */
+    1px -1px 0px aliceblue;  /* Sombra arriba derecha */
+}
+
+.titleMain .colorNaranja {
+    color: #EC8305;
+    text-shadow: 
+    1px 1px 0px aliceblue,   /* Sombra abajo derecha */
+    -1px -1px 0px aliceblue, /* Sombra arriba izquierda */
+    -1px 1px 0px aliceblue,  /* Sombra abajo izquierda */
+    1px -1px 0px aliceblue;  /* Sombra arriba derecha */
+}
+
+.titleMain h1 {
+    text-align: center;
+    font-size: 75px;
+}
+
+.container {
+    display: flex;
+    padding-left: 5rem;
+}
+.container img{
+    height: 17rem;
+    width: 20rem;
+    padding: 2rem;
+}
+
+.lines{
+    text-align: center;
+    color: #EC8305;
+    font-size: 85px;
+    text-shadow: 
+    1px 1px 0px aliceblue,   /* Sombra abajo derecha */
+    -1px -1px 0px aliceblue, /* Sombra arriba izquierda */
+    -1px 1px 0px aliceblue,  /* Sombra abajo izquierda */
+    1px -1px 0px aliceblue;  /* Sombra arriba derecha */
+}
+.movie-info img {
+    float: left;
+    height: 20rem;
+    width: 25rem;
+    margin-right: 2rem;
+}   
+.movie-info h2 {
+    text-align: left;
+    font-size: 80px;
+    color: #024caa;
+}
+.movie-info h3 {
+    text-align: left;
+    font-size: 45px;
+}
+.movie-info p {
+    text-align: left;
+    font-size: 22px;
+    padding-left: 2rem;
+
+}
