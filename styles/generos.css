@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+.titleMain .colorAzul {
+    color: #024CAA;
+    text-shadow: 
+    1px 1px 0px aliceblue,   /* Sombra abajo derecha */
+    -1px -1px 0px aliceblue, /* Sombra arriba izquierda */
+    -1px 1px 0px aliceblue,  /* Sombra abajo izquierda */
+    1px -1px 0px aliceblue;  /* Sombra arriba derecha */
+}
+
+.titleMain .colorNaranja {
+    color: #EC8305;
+    text-shadow: 
+    1px 1px 0px aliceblue,   /* Sombra abajo derecha */
+    -1px -1px 0px aliceblue, /* Sombra arriba izquierda */
+    -1px 1px 0px aliceblue,  /* Sombra abajo izquierda */
+    1px -1px 0px aliceblue;  /* Sombra arriba derecha */
+}
+
+.titleMain h1 {
+    text-align: center;
+    font-size: 105px;
+}
+
+.banner img{
+    height: 25rem;
+    width: 120rem;
+    padding-left: 17.5rem;
+    padding-right: 17.5rem;
+}
+
+.populares h2 {
+    color: #024caa;;
+    font-size: 50px;
+    text-align: left;
+    padding-left: 3rem;
+    text-shadow: 
+    1px 1px 0px aliceblue,   /* Sombra abajo derecha */
+    -1px -1px 0px aliceblue, /* Sombra arriba izquierda */
+    -1px 1px 0px aliceblue,  /* Sombra abajo izquierda */
+    1px -1px 0px aliceblue;  /* Sombra arriba derecha */
+}
+.imagenes{
+    display: flex;
+}
+.imagenes img{
+    height: 30rem;
+    width: 30rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
