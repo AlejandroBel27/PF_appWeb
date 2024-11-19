@@ -18,7 +18,7 @@
 .submit-button {
     font-family: 'Nunito', sans-serif;
     position: absolute;
-    top: 1vh;
+    top: 2vh;
     right: 18vh;
     background: linear-gradient(to right,#091057, #024CAA);
     color: white;
@@ -33,6 +33,7 @@
 .submit-button:hover {
     background: #1e4ddd;
     /* Cambia el color al pasar el ratón */
+    transform: scale(1.02);
 }
 
 h1 {
@@ -65,27 +66,6 @@ main {
     /* Deshabilitar el cambio de tamaño manual */
 }
 
-.toolbar {
-    position: absolute;
-    top: 2vh;
-    left: 18vh;
-    background-color: #f0f0f0;
-    padding: 10px;
-    display: flex;
-    gap: 10px;
-}
-.toolbar button {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 14px;
-}
-.toolbar button:hover {
-    background-color: #e9e9e9;
-}
-
 .form {
     flex: 1;
     background-color: #fff;
@@ -106,16 +86,40 @@ label {
 
 input[type="text"],
 select {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.tipo-post {
+.imgs-post {
     margin: 10px 0;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
+.calificacion {
+    text-align: center;
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    font-size: 20px;   
+}
 
+.calificacion label{
+    color: gray;
+}
 
+.calificacion label:hover,
+.calificacion label:hover ~ label {
+  color: orange;
+}
+
+.calificacion input[type="radio"]:checked ~ label {
+  color: orange;
+}
+
+.calificacion input[type="radio"] {
+    display: none;
+  }
