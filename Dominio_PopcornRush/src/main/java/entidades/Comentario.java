@@ -6,7 +6,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,40 +34,43 @@ public class Comentario implements Serializable {
 
     @Column(name = "fechaHora", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaHora;
+    private Calendar fechaHora;
 
     @Column(name = "contenido", nullable = false, columnDefinition = "TEXT")
     private String contenido;
 
     // Relación muchos a uno con Post (un post puede tener muchos comentarios)
     @ManyToOne
-    @JoinColumn(name = "postComun_id", nullable = false)
+    @JoinColumn(name = "postComun", nullable = false)
     private PostComun postComun;
 
     // Relación muchos a uno con Usuario (un usuario puede hacer muchos comentarios)
     @ManyToOne
-    @JoinColumn(name = "usuarioNormal_id", nullable = false)
+    @JoinColumn(name = "usuarioNormal", nullable = false)
     private UsuarioNormal usuarioNormal;
     
     // Relación recursiva: un comentario puede tener un comentario padre
     @ManyToOne
-    @JoinColumn(name = "comentario_padre_id")
+    @JoinColumn(name = "comentarioPadre")
     private Comentario comentarioPadre;
 
     // Relación recursiva: un comentario puede tener varios comentarios hijos
     @OneToMany(mappedBy = "comentarioPadre", cascade = CascadeType.ALL)
     private List<Comentario> comentariosHijos;
 
-    public Comentario(Date fechaHora, String contenido, PostComun postComun, UsuarioNormal usuarioNormal, Comentario comentarioPadre, List<Comentario> comentariosHijos) {
+    public Comentario() {
+    }
+
+    public Comentario(Calendar fechaHora, String contenido, PostComun postComun, UsuarioNormal usuarioNormal, Comentario comentarioPadre) {
         this.fechaHora = fechaHora;
         this.contenido = contenido;
         this.postComun = postComun;
         this.usuarioNormal = usuarioNormal;
         this.comentarioPadre = comentarioPadre;
-        this.comentariosHijos = comentariosHijos;
+        this.comentariosHijos = new ArrayList<>();
     }
 
-    public Comentario(Date fechaHora, String contenido, PostComun postComun, UsuarioNormal usuarioNormal) {
+    public Comentario(Calendar fechaHora, String contenido, PostComun postComun, UsuarioNormal usuarioNormal) {
         this.fechaHora = fechaHora;
         this.contenido = contenido;
         this.postComun = postComun;
@@ -84,11 +87,11 @@ public class Comentario implements Serializable {
         this.id = id;
     }
 
-    public Date getFechaHora() {
+    public Calendar getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(Date fechaHora) {
+    public void setFechaHora(Calendar fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -132,7 +135,9 @@ public class Comentario implements Serializable {
         this.comentariosHijos = comentariosHijos;
     }
     
-    
+    public void añadirComentarioHijo(Comentario comentario){
+        comentariosHijos.add(comentario);
+    }
     
     
     

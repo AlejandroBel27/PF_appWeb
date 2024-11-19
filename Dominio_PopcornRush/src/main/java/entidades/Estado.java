@@ -5,7 +5,10 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,16 +28,47 @@ public class Estado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nombre", nullable = true, length = 20)
     private String nombre;
 
-    @OneToMany(mappedBy = "estado") // Un estado puede tener varios municipios
+    @OneToMany(mappedBy = "estado", cascade = CascadeType.ALL) // Un estado puede tener varios municipios
     private List<Municipio> municipios;
 
+    public Estado() {
+    }
+
     
-    public Estado(String nombre, List<Municipio> municipios) {
+    public Estado(String nombre) {
         this.nombre = nombre;
+        this.municipios = new ArrayList<>();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Municipio> getMunicipios() {
+        return municipios;
+    }
+
+    public void setMunicipios(List<Municipio> municipios) {
         this.municipios = municipios;
     }
 
+    public void añadirMunicipios(Municipio municipio){
+        municipios.add(municipio);
+    }
     
 }

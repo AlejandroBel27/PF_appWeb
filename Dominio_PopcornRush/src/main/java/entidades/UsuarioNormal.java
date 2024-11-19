@@ -5,6 +5,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -26,7 +27,11 @@ public class UsuarioNormal extends Usuario implements Serializable {
     @OneToMany(mappedBy = "usuarioNormal", cascade = CascadeType.ALL)
     private List<Comentario> comentarios;
     
-    public UsuarioNormal(String nombreCompleto, String correo, String contrasenia, String telefono, String avatar, String ciudad, Date fechaNacimiento, String genero, Municipio municipio) {
+    public UsuarioNormal(){
+        
+    }
+    
+    public UsuarioNormal(String nombreCompleto, String correo, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
         super(nombreCompleto, correo, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero, municipio);
     }
     
