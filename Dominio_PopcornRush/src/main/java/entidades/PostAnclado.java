@@ -5,7 +5,7 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,8 +27,20 @@ public class PostAnclado extends Post implements Serializable {
     @JoinColumn(name = "administrador_id", nullable = false)
     private Administrador administrador;
 
-    public PostAnclado(Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+    public PostAnclado() {
+    }
+
+    public PostAnclado(Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
         super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
     } 
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
+    
     
 }

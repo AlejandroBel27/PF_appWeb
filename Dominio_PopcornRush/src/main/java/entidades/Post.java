@@ -6,7 +6,8 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,6 +30,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "posts")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Post implements Serializable {
 
     @Id
@@ -35,9 +39,9 @@ public class Post implements Serializable {
 
     @Column(name = "fechaHoraCreacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaHoraCreacion;
+    private Calendar fechaHoraCreacion;
 
-    @Column(name = "titulo", nullable = false, length = 255)
+    @Column(name = "titulo", nullable = false, unique = true, length = 255)
     private String titulo;
 
     @Column(name = "contenido", nullable = false, columnDefinition = "TEXT")
@@ -45,12 +49,56 @@ public class Post implements Serializable {
 
     @Column(name = "fechaHoraEdicion")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaHoraEdicion;
+    private Calendar fechaHoraEdicion;
 
-    public Post(Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion) {
+    public Post() {
+    }
+
+    public Post(Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
         this.fechaHoraEdicion = fechaHoraEdicion;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Calendar getFechaHoraCreacion() {
+        return fechaHoraCreacion;
+    }
+
+    public void setFechaHoraCreacion(Calendar fechaHoraCreacion) {
+        this.fechaHoraCreacion = fechaHoraCreacion;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+
+    public Calendar getFechaHoraEdicion() {
+        return fechaHoraEdicion;
+    }
+
+    public void setFechaHoraEdicion(Calendar fechaHoraEdicion) {
+        this.fechaHoraEdicion = fechaHoraEdicion;
+    }
+
 }

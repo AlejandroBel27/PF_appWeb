@@ -5,6 +5,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -27,7 +28,21 @@ public class Administrador extends Usuario implements Serializable {
     @OneToMany(mappedBy = "administrador", cascade = CascadeType.ALL)
     private List<PostAnclado> postsAnclados;
     
-    public Administrador(String nombreCompleto, String correo, String contrasenia, String telefono, String avatar, String ciudad, Date fechaNacimiento, String genero, Municipio municipio) {
+    public Administrador(){
+        
+    }
+    
+    public Administrador(String nombreCompleto, String correo, String contrasenia, String telefono, String avatar, String ciudad, Calendar fechaNacimiento, String genero, Municipio municipio) {
         super(nombreCompleto, correo, contrasenia, telefono, avatar, ciudad, fechaNacimiento, genero, municipio);
     }
+
+    public List<PostAnclado> getPostsAnclados() {
+        return postsAnclados;
+    }
+
+    public void setPostsAnclados(List<PostAnclado> postsAnclados) {
+        this.postsAnclados = postsAnclados;
+    }
+    
+    
 }
