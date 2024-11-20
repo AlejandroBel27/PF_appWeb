@@ -76,6 +76,7 @@ body {
 
 .header .button:hover{
     background-color: #002699; /* Cambia el color al pasar el ratón */
+    transform: scale(1.02);
 }
 
 

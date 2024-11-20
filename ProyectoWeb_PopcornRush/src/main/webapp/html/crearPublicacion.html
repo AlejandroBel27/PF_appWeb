@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crearPublicacion</title>
+    <title>Crear Publicacion</title>
     <link rel="stylesheet" href="../styles/crearPublicacion.css">
     <link rel="stylesheet" href="../styles/header.css">
 </head>
@@ -28,20 +28,6 @@
 
     <div class="container">
         <main>
-            <div class="editor-container">
-                <div class="toolbar">
-                    <button onclick="formatText('bold')"><strong>B</strong></button>
-                    <button onclick="formatText('italic')"><em>I</em></button>
-                    <button onclick="formatText('underline')"><u>U</u></button>
-                    <button onclick="formatText('insertUnorderedList')">• Lista</button>
-                    <button onclick="formatText('insertOrderedList')">1. Lista</button>
-                    <button onclick="formatText('justifyLeft')">Izquierda</button>
-                    <button onclick="formatText('justifyCenter')">Centro</button>
-                    <button onclick="formatText('justifyRight')">Derecha</button>
-                    <button onclick="insertImage()">🖼️ Imagen</button>
-                </div>
-                <div contenteditable="true" id="editor"></div>
-            </div>
             <button class="submit-button ">Publicar</button>
             <div class="editor">
                 <textarea placeholder="Escribe tu post aquí..."></textarea>
@@ -63,14 +49,25 @@
                     <option>Documental</option>
                 </select>
 
-                <label class= "label">Tipo de Post:</label>
-                <div class="tipo-post">
-                    <label><input type="radio" name="tipo" value="anclado"> Anclado</label>
-                    <label><input type="radio" name="tipo" value="comun"> Común</label>
+                <label class="label">Imágenes del Post:</label>
+                <div class="imgs-post">
+                    <label for="imgPortada">Portada:</label>
+                    <input type="file" id="imgPortada" name="imgPortada" accept="image/*" required>
                 </div>
 
-                <label class= "label" for="calificacion">Calificación:</label>
-                <input type="text" id="calificacion" placeholder="Calificación">
+                <label class="label">Calificación:</label>
+                <div class="calificacion">
+                    <input id="radio1" type="radio" name="estrellas" value="5">
+                    <label for="radio1">★</label>
+                    <input id="radio2" type="radio" name="estrellas" value="4">
+                    <label for="radio2">★</label>
+                    <input id="radio3" type="radio" name="estrellas" value="3">
+                    <label for="radio3">★</label>
+                    <input id="radio4" type="radio" name="estrellas" value="2">
+                    <label for="radio4">★</label>
+                    <input id="radio5" type="radio" name="estrellas" value="1">
+                    <label for="radio5">★</label>
+                </div>
             </div>
         </main>
     </div>

@@ -7,6 +7,7 @@ package entidades;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -123,7 +124,7 @@ public class Comentario implements Serializable {
         this.comentarioPadre = comentarioPadre;
     }
 
-    public List<Comentarios> getComentariosHijos() {
+    public List<Comentario> getComentariosHijos() {
         return comentariosHijos;
     }
 
