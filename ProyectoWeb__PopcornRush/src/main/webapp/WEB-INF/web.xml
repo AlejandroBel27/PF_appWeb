@@ -3,6 +3,17 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
    version="6.0">
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errores/NotFound.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/errores/JavaError.jsp</location>
+    </error-page>
+    
     <session-config>
         <session-timeout>
             30
