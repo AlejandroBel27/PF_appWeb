@@ -4,12 +4,25 @@
  */
 package servlets;
 
+import entidades.Estado;
+import entidades.Municipio;
+import entidades.UsuarioNormal;
+import excepciones.ExcepcionAT;
+import fachada.FachadaDominio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,7 +47,7 @@ public class RegistroUsuarioNormal extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegistroUsuarioNormal</title>");            
+            out.println("<title>Servlet RegistroUsuarioNormal</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet RegistroUsuarioNormal at " + request.getContextPath() + "</h1>");
@@ -69,7 +82,83 @@ public class RegistroUsuarioNormal extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        FachadaDominio fD = new FachadaDominio();
+        // Recuperar datos del formulario
+        String nombreCompleto = request.getParameter("name");
+        String correo = request.getParameter("email");
+        String contrasenia = request.getParameter("password");
+        String telefono = request.getParameter("phone");
+        String ciudad = request.getParameter("city");
+        String fechaNacimientoStr = request.getParameter("birthdate");
+        String genero = request.getParameter("gender");
+        String nombreEstado = request.getParameter("state");
+        String nombreMunicipio = request.getParameter("municipality");
+
+        // Obtener la imagen (archivo subido)
+        Part filePart = request.getPart("avatar");
+        String fileName = filePart.getSubmittedFileName();
+
+        // Ruta para guardar la imagen
+        String uploadPath = getServletContext().getRealPath("") + File.separator + "userImgs";
+
+        // Crear la carpeta si no existe
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+
+        // Generar un nombre único para evitar sobrescribir archivos
+        String uniqueFileName = UUID.randomUUID().toString() + "_" + fileName;
+
+        // Guardar la imagen en la carpeta
+        String filePath = uploadPath + File.separator + uniqueFileName;
+        filePart.write(filePath);
+
+        // Guardar la ruta relativa (para almacenar en el atributo avatar)
+        String relativePath = "userImgs/" + uniqueFileName;
+
+        // Parsear fecha de nacimiento
+        Calendar fechaNacimiento = Calendar.getInstance();
+        fechaNacimiento.setTime(java.sql.Date.valueOf(fechaNacimientoStr)); // Convertir a tipo Date
+
+        // Crear el objeto Estado
+        Estado estado = new Estado(nombreEstado);
+
+        // Crear el objeto Municipio y asociarlo con el estado
+        Municipio municipio = new Municipio();
+        municipio.setNombre(nombreMunicipio);
+        municipio.setEstado(estado);
+
+        // Añadir el municipio al estado
+        estado.añadirMunicipios(municipio);
+
+        // Crear el objeto UsuarioNormal
+        UsuarioNormal usuarioNormal = new UsuarioNormal(
+                nombreCompleto,
+                correo,
+                contrasenia,
+                telefono,
+                relativePath,
+                ciudad,
+                fechaNacimiento,
+                genero,
+                municipio
+        );
+
+        try {
+            // Registrar al usuario normal (junto con estado y municipio)
+            fD.registrarEstado(estado); // Persiste el estado con los municipios asociados
+        } catch (ExcepcionAT ex) {
+            Logger.getLogger(RegistroUsuarioNormal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            fD.registrarUsuarioNormal(usuarioNormal); // Persiste el usuario
+        } catch (ExcepcionAT ex) {
+            Logger.getLogger(RegistroUsuarioNormal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Redirigir a una página de éxito
+        response.sendRedirect("home.html");
     }
 
     /**
