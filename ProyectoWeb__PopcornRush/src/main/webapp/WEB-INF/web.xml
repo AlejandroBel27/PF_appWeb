@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+<<<<<<< HEAD
     <error-page>
         <error-code>404</error-code>
         <location>/errores/NotFound.jsp</location>
@@ -21,4 +22,46 @@
             30
         </session-timeout>
     </session-config>
+=======
+    <servlet>
+        <servlet-name>SvAuth</servlet-name>
+        <servlet-class>servlets.SvAuth</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SvActores</servlet-name>
+        <servlet-class>servlets.SvActores</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SvNoticias</servlet-name>
+        <servlet-class>servlets.SvNoticias</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SvTrailers</servlet-name>
+        <servlet-class>servlets.SvTrailers</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SvHome</servlet-name>
+        <servlet-class>servlets.SvHome</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SvAuth</servlet-name>
+        <url-pattern>/SvAuth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvActores</servlet-name>
+        <url-pattern>/SvActores</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvNoticias</servlet-name>
+        <url-pattern>/SvNoticias</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvTrailers</servlet-name>
+        <url-pattern>/SvTrailers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvHome</servlet-name>
+        <url-pattern>/SvHome</url-pattern>
+    </servlet-mapping>
+>>>>>>> linda
 </web-app>
