@@ -24,6 +24,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+<<<<<<< HEAD
             <groupId>${project.groupId}</groupId>
             <artifactId>Dominio_PopcornRush</artifactId>
             <version>${project.version}</version>
@@ -32,6 +33,24 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>AccesoDominio_PopcornRush</artifactId>
             <version>${project.version}</version>
+=======
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>3.0-alpha-1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.sharneng</groupId>
+            <artifactId>web-servlet</artifactId>
+            <version>1.0.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.guicedee.services</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>1.0.9.14-jre14</version>
+            <type>jar</type>
+>>>>>>> linda
         </dependency>
     </dependencies>
     
