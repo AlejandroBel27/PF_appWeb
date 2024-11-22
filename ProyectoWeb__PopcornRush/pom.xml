@@ -23,6 +23,16 @@
             <version>${jakartaee}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Dominio_PopcornRush</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>AccesoDominio_PopcornRush</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     
     <build>

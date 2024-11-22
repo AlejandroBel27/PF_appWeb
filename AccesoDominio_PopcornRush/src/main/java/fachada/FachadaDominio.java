@@ -9,6 +9,8 @@ import daos.ComentarioDAO;
 import daos.EstadoDAO;
 import daos.MunicipioDAO;
 import daos.PostAncladoDAO;
+import daos.PostComunDAO;
+import daos.UsuarioNormalDAO;
 import entidades.*;
 import excepciones.ExcepcionAT;
 
@@ -22,6 +24,8 @@ public class FachadaDominio implements IFachadaDominio{
     private EstadoDAO estadoDAO;
     private MunicipioDAO municipioDAO;
     private PostAncladoDAO postAncladoDAO;
+    private UsuarioNormalDAO usuarioNormalDAO;
+    private PostComunDAO postComunDAO;
 
     public FachadaDominio() {
         this.administradorDAO = new AdministradorDAO();
@@ -29,6 +33,8 @@ public class FachadaDominio implements IFachadaDominio{
         this.estadoDAO = new EstadoDAO();
         this.municipioDAO = new MunicipioDAO();
         this.postAncladoDAO = new PostAncladoDAO();
+        this.usuarioNormalDAO = new UsuarioNormalDAO();
+        this.postComunDAO = new PostComunDAO();
     }
 
     // Métodos de la fachada para Administrador
@@ -68,6 +74,7 @@ public class FachadaDominio implements IFachadaDominio{
         comentarioDAO.eliminarComentario(comentario);
     }
 
+    @Override
     public Comentario obtenerComentarioPorPost(PostComun postComun) throws ExcepcionAT {
         return comentarioDAO.obtenerComentario(postComun);
     }
@@ -128,5 +135,47 @@ public class FachadaDominio implements IFachadaDominio{
     @Override
     public PostAnclado obtenerPostAnclado(String titulo) throws ExcepcionAT {
         return postAncladoDAO.obtenerPostAnclado(titulo);
+    }
+
+    // Métodos de la fachada para Usario normal
+    @Override
+    public void registrarUsuarioNormal(UsuarioNormal usuarioNormal) throws ExcepcionAT {
+        usuarioNormalDAO.registrarUsuarioNormal(usuarioNormal);
+    }
+
+    @Override
+    public void actualizarUsuarioNormal(UsuarioNormal usuarioNormal) throws ExcepcionAT {
+        usuarioNormalDAO.actualizarUsuarioNormal(usuarioNormal);
+    }
+
+    @Override
+    public void eliminarUsuarioNormal(UsuarioNormal usuarioNormal) throws ExcepcionAT {
+        usuarioNormalDAO.eliminarUsuarioNormal(usuarioNormal);
+    }
+
+    @Override
+    public UsuarioNormal obtenerUsuarioNormal(String correo, String contraseña) throws ExcepcionAT {
+        return usuarioNormalDAO.obtenerUsuarioNormal(correo, contraseña);
+    }
+
+    //Métodos de la fachada para el post común
+    @Override
+    public void registrarPostComun(PostComun postComun) throws ExcepcionAT {
+        postComunDAO.registrarPostComun(postComun);
+    }
+
+    @Override
+    public void actualizarPostComun(PostComun postComun) throws ExcepcionAT {
+        postComunDAO.actualizarPostComun(postComun);
+    }
+
+    @Override
+    public void eliminarPostComun(PostComun postComun) throws ExcepcionAT {
+        postComunDAO.eliminarPostComun(postComun);
+    }
+
+    @Override
+    public PostComun obtenerPostComun(String titulo) throws ExcepcionAT {
+        return postComunDAO.obtenerPostComun(titulo);
     }
 }

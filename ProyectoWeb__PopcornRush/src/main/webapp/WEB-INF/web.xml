@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-   version="6.0">
-    
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <error-page>
         <error-code>404</error-code>
         <location>/errores/NotFound.jsp</location>
     </error-page>
-    
     <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/errores/JavaError.jsp</location>
     </error-page>
-    
+    <servlet>
+        <servlet-name>RegistroUsuarioNormal</servlet-name>
+        <servlet-class>servlets.RegistroUsuarioNormal</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegistroUsuarioNormal</servlet-name>
+        <url-pattern>/RegistroUsuarioNormal</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
