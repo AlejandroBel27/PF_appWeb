@@ -4,6 +4,9 @@
  */
 package servlets;
 
+import entidades.Post;
+import fachada.FachadaDominio;
+import fachada.IFachadaDominio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.WebServlet;
+import java.util.List;
 
 /**
  *
@@ -58,6 +62,25 @@ public class SvHome extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+//         try {
+//            IFachadaDominio fachada = new FachadaDominio();
+//            List<Post> posts = fachada.();
+//            
+//            System.out.println("Number of posts retrieved: " + posts.size());
+//            System.out.println("posts retrieved: " + posts);            
+//            
+//            for (Post p : posts) {
+//                System.out.println(p.getTitulo());
+//                System.out.println(p.getIdPost());
+//            }
+//            request.setAttribute("posts", posts);
+//            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
+//        } catch (Exception e) {
+//            System.out.println("ocurrio un error");
+//            throw new Error(e   );
+//        }
+        
     }
 
     /**

@@ -46,7 +46,7 @@
             </h1>
         </section>
 
-        <section class="container">
+        <section class="pinned-posts-container">
             <a href=""> 
                 <img src="../img/redRooms.jfif" alt="redRooms">
             </a>
@@ -65,7 +65,7 @@
             <p>----------------------------------</p>
         </section>
 
-        <div class="movie-info">
+        <div class="all-posts-container">
             <img src="../img/poorthings.jpg" alt="poorthings Imagen">
             <h2>Poor things, la pelicula mas rara...</h2>
             <h3>Fecha 10 de Enero del 2024</h3>
@@ -89,6 +89,16 @@
                 quisquam iure earum repellendus accusamus dignissimos accusantium, qui distinctio!</p>
         </div>
     </main>
+    <aside>
+            <c:choose>
+            <c:when test="${not empty sessionScope.usuario}">
+               <a class="crearPost" href="crearPublicacionJSP.jsp">
+            </c:when>
+            <c:otherwise>
+                <a href="loginJSP.jsp" class="button">Iniciar Sesión</a>
+            </c:otherwise>
+        </c:choose>
+    </aside>
 </body>
 
 </html>

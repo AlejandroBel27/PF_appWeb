@@ -8,6 +8,7 @@ import entidades.Comentario;
 import entidades.PostAnclado;
 import excepciones.ExcepcionAT;
 import interfacesDAO.IPostAncladoDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -117,6 +118,38 @@ public class PostAncladoDAO implements IPostAncladoDAO {
                 em.close();
             }
         }
+    }
+    
+    @Override
+    public List<PostAnclado> obtenerPosts () throws ExcepcionAT{
+        List<PostAnclado> posts = null;
+        EntityManager em = null;
+
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+
+            // Consulta JPQL para obtener todos los posts comunes
+            String jpql = "SELECT p FROM PostAnclado p";
+            TypedQuery<PostAnclado> query = em.createQuery(jpql, PostAnclado.class);
+
+            // Obtener la lista de resultados
+            posts = query.getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al obtener posts anclados: " + e.getMessage());
+            throw new ExcepcionAT("Error al obtener posts anclados", e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return posts;
     }
 
 }

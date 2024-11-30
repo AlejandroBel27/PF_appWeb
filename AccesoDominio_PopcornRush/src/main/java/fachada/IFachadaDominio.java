@@ -6,6 +6,7 @@ package fachada;
 
 import entidades.*;
 import excepciones.ExcepcionAT;
+import java.util.List;
 
 /**
  *
@@ -55,6 +56,8 @@ public interface IFachadaDominio {
     public void eliminarPostAnclado(PostAnclado postAnclado) throws ExcepcionAT;
 
     public PostAnclado obtenerPostAnclado(String titulo) throws ExcepcionAT;
+    
+    public List<PostAnclado> obtenerPostsAnclados() throws ExcepcionAT;
 
     // Métodos para UsuarioNormal
     public void registrarUsuarioNormal(UsuarioNormal usuarioNormal) throws ExcepcionAT;
@@ -73,4 +76,6 @@ public interface IFachadaDominio {
     public void eliminarPostComun(PostComun postComun) throws ExcepcionAT;
 
     public PostComun obtenerPostComun(String titulo) throws ExcepcionAT;
+    
+    public List<PostComun> obtenerPostsComunes() throws ExcepcionAT;
 }

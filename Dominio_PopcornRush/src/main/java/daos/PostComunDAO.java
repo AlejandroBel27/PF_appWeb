@@ -7,6 +7,7 @@ package daos;
 import entidades.PostComun;
 import excepciones.ExcepcionAT;
 import interfacesDAO.IPostComunDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -17,7 +18,8 @@ import javax.persistence.TypedQuery;
  * @author galan
  */
 public class PostComunDAO implements IPostComunDAO {
-     EntityManagerFactory emf;
+
+    EntityManagerFactory emf;
     EntityManager em;
 
     public PostComunDAO() {
@@ -115,5 +117,37 @@ public class PostComunDAO implements IPostComunDAO {
                 em.close();
             }
         }
+    }
+
+    @Override
+    public List<PostComun> obtenerPosts() throws ExcepcionAT {
+        List<PostComun> posts = null;
+        EntityManager em = null;
+
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+
+            // Consulta JPQL para obtener todos los posts comunes
+            String jpql = "SELECT p FROM PostComun p";
+            TypedQuery<PostComun> query = em.createQuery(jpql, PostComun.class);
+
+            // Obtener la lista de resultados
+            posts = query.getResultList();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al obtener posts comunes: " + e.getMessage());
+            throw new ExcepcionAT("Error al obtener posts comunes", e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return posts;
     }
 }

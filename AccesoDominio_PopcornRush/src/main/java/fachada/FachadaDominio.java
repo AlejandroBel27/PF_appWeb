@@ -13,6 +13,7 @@ import entidades.*;
 import excepciones.ExcepcionAT;
 import fabrica.FabricaDominio;
 import fabrica.IFabricaDominio;
+import java.util.List;
 
 /**
  *
@@ -125,6 +126,11 @@ public class FachadaDominio implements IFachadaDominio {
     public PostAnclado obtenerPostAnclado(String titulo) throws ExcepcionAT {
         return fabrica.postAnclado().obtenerPostAnclado(titulo);
     }
+    
+    @Override
+    public List<PostAnclado> obtenerPostsAnclados() throws ExcepcionAT{
+        return fabrica.postAnclado().obtenerPosts();
+    }
 
     // Métodos de la fachada para UsuarioNormal
     @Override
@@ -166,6 +172,11 @@ public class FachadaDominio implements IFachadaDominio {
     @Override
     public PostComun obtenerPostComun(String titulo) throws ExcepcionAT {
         return fabrica.postComun().obtenerPostComun(titulo);
+    }
+    
+    @Override
+    public List<PostComun> obtenerPostsComunes() throws ExcepcionAT{
+        return fabrica.postComun().obtenerPosts();
     }
 
 }

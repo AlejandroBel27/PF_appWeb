@@ -6,6 +6,7 @@ package interfacesDAO;
 
 import entidades.PostComun;
 import excepciones.ExcepcionAT;
+import java.util.List;
 
 /**
  *
@@ -39,4 +40,11 @@ public interface IPostComunDAO {
      * @throws ExcepcionAT 
      */
     public PostComun obtenerPostComun(String titulo) throws ExcepcionAT;
+    
+    /**
+     * Método que obtiene todos los posts comunes en la base de datos.
+     * @return
+     * @throws ExcepcionAT 
+     */
+    public List<PostComun> obtenerPosts() throws ExcepcionAT;
 }
