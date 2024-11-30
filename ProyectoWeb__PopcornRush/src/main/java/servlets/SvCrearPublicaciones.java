@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author cocob
  */
-@WebServlet(name = "SvCrearPublicaciones", urlPatterns = {"/SvCrearPublicaciones"})
 public class SvCrearPublicaciones extends HttpServlet {
 
     /**

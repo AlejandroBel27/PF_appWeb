@@ -9,173 +9,163 @@ import daos.ComentarioDAO;
 import daos.EstadoDAO;
 import daos.MunicipioDAO;
 import daos.PostAncladoDAO;
-import daos.PostComunDAO;
-import daos.UsuarioNormalDAO;
 import entidades.*;
 import excepciones.ExcepcionAT;
+import fabrica.FabricaDominio;
+import fabrica.IFabricaDominio;
 
 /**
  *
  * @author galan
  */
-public class FachadaDominio implements IFachadaDominio{
-    private AdministradorDAO administradorDAO;
-    private ComentarioDAO comentarioDAO;
-    private EstadoDAO estadoDAO;
-    private MunicipioDAO municipioDAO;
-    private PostAncladoDAO postAncladoDAO;
-    private UsuarioNormalDAO usuarioNormalDAO;
-    private PostComunDAO postComunDAO;
+public class FachadaDominio implements IFachadaDominio {
+
+    private IFabricaDominio fabrica;
 
     public FachadaDominio() {
-        this.administradorDAO = new AdministradorDAO();
-        this.comentarioDAO = new ComentarioDAO();
-        this.estadoDAO = new EstadoDAO();
-        this.municipioDAO = new MunicipioDAO();
-        this.postAncladoDAO = new PostAncladoDAO();
-        this.usuarioNormalDAO = new UsuarioNormalDAO();
-        this.postComunDAO = new PostComunDAO();
+        this.fabrica = new FabricaDominio();
     }
 
     // Métodos de la fachada para Administrador
     @Override
     public void registrarAdministrador(Administrador administrador) throws ExcepcionAT {
-        administradorDAO.registrarAdministrador(administrador);
+        fabrica.administrador().registrarAdministrador(administrador);
     }
 
     @Override
     public void actualizarAdministrador(Administrador administrador) throws ExcepcionAT {
-        administradorDAO.actualizarAdministrador(administrador);
+        fabrica.administrador().actualizarAdministrador(administrador);
     }
 
     @Override
     public void eliminarAdministrador(Administrador administrador) throws ExcepcionAT {
-        administradorDAO.eliminarAdministrador(administrador);
+        fabrica.administrador().eliminarAdministrador(administrador);
     }
 
     @Override
     public Administrador obtenerAdministrador(String correo, String contraseña) throws ExcepcionAT {
-        return administradorDAO.obtenerAdministrador(correo, contraseña);
+        return fabrica.administrador().obtenerAdministrador(correo, contraseña);
     }
 
     // Métodos de la fachada para Comentario
     @Override
     public void registrarComentario(Comentario comentario) throws ExcepcionAT {
-        comentarioDAO.registrarComentario(comentario);
+        fabrica.comentario().registrarComentario(comentario);
     }
 
     @Override
     public void actualizarComentario(Comentario comentario) throws ExcepcionAT {
-        comentarioDAO.actualizarComentario(comentario);
+        fabrica.comentario().actualizarComentario(comentario);
     }
-    
+
     @Override
     public void eliminarComentario(Comentario comentario) throws ExcepcionAT {
-        comentarioDAO.eliminarComentario(comentario);
+        fabrica.comentario().eliminarComentario(comentario);
     }
 
     @Override
     public Comentario obtenerComentarioPorPost(PostComun postComun) throws ExcepcionAT {
-        return comentarioDAO.obtenerComentario(postComun);
-    }
-    
-    @Override
-    public Comentario obtenerComentarioPorPadre(Comentario comentarioPadre) throws ExcepcionAT {
-        return comentarioDAO.obtenerComentario(comentarioPadre);
+        return fabrica.comentario().obtenerComentario(postComun);
     }
 
     @Override
+    public Comentario obtenerComentarioPorPadre(Comentario comentarioPadre) throws ExcepcionAT {
+        return fabrica.comentario().obtenerComentario(comentarioPadre);
+    }
+
     // Métodos de la fachada para Estado
+    @Override
     public void registrarEstado(Estado estado) throws ExcepcionAT {
-        estadoDAO.registrarEstado(estado);
+        fabrica.estado().registrarEstado(estado);
     }
 
     @Override
     public void actualizarEstado(Estado estado) throws ExcepcionAT {
-        estadoDAO.actualizarEstado(estado);
+        fabrica.estado().actualizarEstado(estado);
     }
 
     @Override
     public void eliminarEstado(Estado estado) throws ExcepcionAT {
-        estadoDAO.eliminarEstado(estado);
+        fabrica.estado().eliminarEstado(estado);
     }
 
     // Métodos de la fachada para Municipio
     @Override
     public void registrarMunicipio(Municipio municipio) throws ExcepcionAT {
-        municipioDAO.registrarMunicipio(municipio);
+        fabrica.municipio().registrarMunicipio(municipio);
     }
 
     @Override
     public void actualizarMunicipio(Municipio municipio) throws ExcepcionAT {
-        municipioDAO.actualizarMunicipio(municipio);
+        fabrica.municipio().actualizarMunicipio(municipio);
     }
 
     @Override
     public void eliminarMunicipio(Municipio municipio) throws ExcepcionAT {
-        municipioDAO.eliminarMunicipio(municipio);
+        fabrica.municipio().eliminarMunicipio(municipio);
     }
 
     // Métodos de la fachada para PostAnclado
     @Override
     public void registrarPostAnclado(PostAnclado postAnclado) throws ExcepcionAT {
-        postAncladoDAO.registrarPostAnclado(postAnclado);
+        fabrica.postAnclado().registrarPostAnclado(postAnclado);
     }
 
     @Override
     public void actualizarPostAnclado(PostAnclado postAnclado) throws ExcepcionAT {
-        postAncladoDAO.actualizarPostAnclado(postAnclado);
+        fabrica.postAnclado().actualizarPostAnclado(postAnclado);
     }
 
     @Override
     public void eliminarPostAnclado(PostAnclado postAnclado) throws ExcepcionAT {
-        postAncladoDAO.eliminarPostAnclado(postAnclado);
+        fabrica.postAnclado().eliminarPostAnclado(postAnclado);
     }
 
     @Override
     public PostAnclado obtenerPostAnclado(String titulo) throws ExcepcionAT {
-        return postAncladoDAO.obtenerPostAnclado(titulo);
+        return fabrica.postAnclado().obtenerPostAnclado(titulo);
     }
 
-    // Métodos de la fachada para Usario normal
+    // Métodos de la fachada para UsuarioNormal
     @Override
     public void registrarUsuarioNormal(UsuarioNormal usuarioNormal) throws ExcepcionAT {
-        usuarioNormalDAO.registrarUsuarioNormal(usuarioNormal);
+        fabrica.usuarioNormal().registrarUsuarioNormal(usuarioNormal);
     }
 
     @Override
     public void actualizarUsuarioNormal(UsuarioNormal usuarioNormal) throws ExcepcionAT {
-        usuarioNormalDAO.actualizarUsuarioNormal(usuarioNormal);
+        fabrica.usuarioNormal().actualizarUsuarioNormal(usuarioNormal);
     }
 
     @Override
     public void eliminarUsuarioNormal(UsuarioNormal usuarioNormal) throws ExcepcionAT {
-        usuarioNormalDAO.eliminarUsuarioNormal(usuarioNormal);
+        fabrica.usuarioNormal().eliminarUsuarioNormal(usuarioNormal);
     }
 
     @Override
     public UsuarioNormal obtenerUsuarioNormal(String correo, String contraseña) throws ExcepcionAT {
-        return usuarioNormalDAO.obtenerUsuarioNormal(correo, contraseña);
+        return fabrica.usuarioNormal().obtenerUsuarioNormal(correo, contraseña);
     }
 
-    //Métodos de la fachada para el post común
+// Métodos de la fachada para PostComun
     @Override
     public void registrarPostComun(PostComun postComun) throws ExcepcionAT {
-        postComunDAO.registrarPostComun(postComun);
+        fabrica.postComun().registrarPostComun(postComun);
     }
 
     @Override
     public void actualizarPostComun(PostComun postComun) throws ExcepcionAT {
-        postComunDAO.actualizarPostComun(postComun);
+        fabrica.postComun().actualizarPostComun(postComun);
     }
 
     @Override
     public void eliminarPostComun(PostComun postComun) throws ExcepcionAT {
-        postComunDAO.eliminarPostComun(postComun);
+        fabrica.postComun().eliminarPostComun(postComun);
     }
 
     @Override
     public PostComun obtenerPostComun(String titulo) throws ExcepcionAT {
-        return postComunDAO.obtenerPostComun(titulo);
+        return fabrica.postComun().obtenerPostComun(titulo);
     }
+
 }
