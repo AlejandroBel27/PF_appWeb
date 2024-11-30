@@ -52,6 +52,10 @@
         <servlet-name>SvCrearPublicaciones</servlet-name>
         <servlet-class>servlets.SvCrearPublicaciones</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SvHome</servlet-name>
+        <servlet-class>servlets.SvHome</servlet-class>
+    </servlet>
     
     <!-- Mapeo de servlets -->
     <servlet-mapping>
@@ -82,5 +86,14 @@
         <servlet-name>SvCrearPublicaciones</servlet-name>
         <url-pattern>/SvCrearPublicaciones</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvHome</servlet-name>
+        <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
 
+
+    <!-- define página de inicio -->
+    <welcome-file-list>
+        <welcome-file>Home</welcome-file>
+    </welcome-file-list>
 </web-app>

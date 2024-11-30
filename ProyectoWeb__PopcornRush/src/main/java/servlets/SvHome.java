@@ -5,6 +5,8 @@
 package servlets;
 
 import entidades.Post;
+import entidades.PostAnclado;
+import entidades.PostComun;
 import fachada.FachadaDominio;
 import fachada.IFachadaDominio;
 import java.io.IOException;
@@ -34,19 +36,7 @@ public class SvHome extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SvHome</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SvHome at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,23 +53,22 @@ public class SvHome extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-//         try {
-//            IFachadaDominio fachada = new FachadaDominio();
-//            List<Post> posts = fachada.();
-//            
-//            System.out.println("Number of posts retrieved: " + posts.size());
-//            System.out.println("posts retrieved: " + posts);            
-//            
-//            for (Post p : posts) {
-//                System.out.println(p.getTitulo());
-//                System.out.println(p.getIdPost());
-//            }
-//            request.setAttribute("posts", posts);
-//            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
-//        } catch (Exception e) {
-//            System.out.println("ocurrio un error");
-//            throw new Error(e   );
-//        }
+         try {
+            IFachadaDominio fachada = new FachadaDominio();
+            List<PostComun> postsComunes = fachada.obtenerPostsComunes();
+            List<PostAnclado> postsAnclados = fachada.obtenerPostsAnclados();
+            
+            System.out.println("Number of common posts retrieved: " + postsComunes.size());
+            System.out.println("Number of pinned posts retrieved: " + postsAnclados.size());
+                
+            request.setAttribute("postsComunes", postsComunes);
+            request.setAttribute("postsAnclados", postsAnclados);
+            request.getRequestDispatcher("jsp/homeJSP.jsp").forward(request, response);
+        
+         } catch (Exception e) {
+            System.out.println("Tronó el asunto");
+            throw new Error(e   );
+        }
         
     }
 
