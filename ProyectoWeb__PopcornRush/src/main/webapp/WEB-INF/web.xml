@@ -12,11 +12,25 @@
         <exception-type>java.lang.Throwable</exception-type>
         <location>/errores/JavaError.jsp</location>
     </error-page>
+    
+    <filter>
+        <filter-name>FiltroAutenticacion</filter-name>
+        <filter-class>filtros.FiltroAutenticacion</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroAutenticacion</filter-name>
+        <url-pattern>/*</url-pattern> <!-- Aplica el filtro a todas las rutas -->
+    </filter-mapping>
+
 
     <!-- Declaración de servlets -->
     <servlet>
         <servlet-name>RegistroUsuarioNormal</servlet-name>
         <servlet-class>servlets.RegistroUsuarioNormal</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>IniciarSesion</servlet-name>
+        <servlet-class>servlets.IniciarSesion</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SvAuth</servlet-name>
@@ -39,6 +53,10 @@
     <servlet-mapping>
         <servlet-name>RegistroUsuarioNormal</servlet-name>
         <url-pattern>/RegistroUsuarioNormal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IniciarSesion</servlet-name>
+        <url-pattern>/IniciarSesion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SvAuth</servlet-name>

@@ -9,6 +9,7 @@ import excepciones.ExcepcionAT;
 import interfacesDAO.IUsuarioNormalDAO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -27,16 +28,24 @@ public class UsuarioNormalDAO implements IUsuarioNormalDAO {
 
     @Override
     public void registrarUsuarioNormal(UsuarioNormal usuarioNormal) throws ExcepcionAT {
+        EntityTransaction transaction = null;
         try {
             em = emf.createEntityManager();
-            em.getTransaction().begin();
+            transaction = em.getTransaction();
 
+            // Inicia la transacción si no está activa
+            if (!transaction.isActive()) {
+                transaction.begin();
+            }
+
+            // Realiza la operación de persistencia
             em.persist(usuarioNormal);
 
-            em.getTransaction().commit();
+            // Commit de la transacción
+            transaction.commit();
         } catch (Exception e) {
-            if (em != null) {
-                em.getTransaction().rollback();
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback(); // Rollback si la transacción está activa
             }
             System.err.println("Error al registrar UsuarioNormal: " + e.getMessage());
             throw new ExcepcionAT("Error al obtener UsuarioNormal", e);
@@ -100,7 +109,7 @@ public class UsuarioNormalDAO implements IUsuarioNormalDAO {
             String jpql = "SELECT u FROM UsuarioNormal u WHERE u.correo = :correo AND u.contraseña = :contraseña";
             TypedQuery<UsuarioNormal> query = em.createQuery(jpql, UsuarioNormal.class);
             query.setParameter("correo", correo);
-            query.setParameter("contrasenia", contraseña);
+            query.setParameter("contraseña", contraseña);
 
             UsuarioNormal usuarioNormal = query.getSingleResult();
 

@@ -100,7 +100,7 @@ public class AdministradorDAO implements IAdministradorDAO{
             String jpql = "SELECT u FROM Administrador u WHERE u.correo = :correo AND u.contraseña = :contraseña";
             TypedQuery<Administrador> query = em.createQuery(jpql, Administrador.class);
             query.setParameter("correo", correo);
-            query.setParameter("contrasenia", contraseña);
+            query.setParameter("contraseña", contraseña);
 
             Administrador administrador = query.getSingleResult();
 

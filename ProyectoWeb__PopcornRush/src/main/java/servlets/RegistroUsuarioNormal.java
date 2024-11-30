@@ -6,54 +6,60 @@ package servlets;
 
 import entidades.Estado;
 import entidades.Municipio;
+import static entidades.PostComun_.usuario;
 import entidades.UsuarioNormal;
 import excepciones.ExcepcionAT;
 import fachada.FachadaDominio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
  * @author PERSONAL
  */
+@MultipartConfig // Habilitar la carga de archivos
 public class RegistroUsuarioNormal extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RegistroUsuarioNormal</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RegistroUsuarioNormal at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+    // Método para comprimir la imagen (ajustar tamaño)
+    private BufferedImage compressImage(BufferedImage originalImage, int width, int height) {
+        // Redimensionar la imagen manteniendo la relación de aspecto
+        BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = resizedImage.createGraphics();
+        g2d.drawImage(originalImage, 0, 0, width, height, null);
+        g2d.dispose();
+        return resizedImage;
+    }
+
+    // Método para convertir la imagen comprimida a Base64
+    private String convertToBase64(BufferedImage image, String format) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        // Convertir la imagen comprimida a JPEG (o el formato que desees)
+        ImageIO.write(image, format, byteArrayOutputStream);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+
+        // Convertir a Base64
+        return Base64.getEncoder().encodeToString(imageBytes);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,7 +74,7 @@ public class RegistroUsuarioNormal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**
@@ -115,7 +121,7 @@ public class RegistroUsuarioNormal extends HttpServlet {
         filePart.write(filePath);
 
         // Guardar la ruta relativa (para almacenar en el atributo avatar)
-        String relativePath = "userImgs/" + uniqueFileName;
+        String avatar = "userImgs/" + uniqueFileName;
 
         // Parsear fecha de nacimiento
         Calendar fechaNacimiento = Calendar.getInstance();
@@ -138,7 +144,7 @@ public class RegistroUsuarioNormal extends HttpServlet {
                 correo,
                 contrasenia,
                 telefono,
-                relativePath,
+                avatar,
                 ciudad,
                 fechaNacimiento,
                 genero,
@@ -146,19 +152,16 @@ public class RegistroUsuarioNormal extends HttpServlet {
         );
 
         try {
-            // Registrar al usuario normal (junto con estado y municipio)
-            fD.registrarEstado(estado); // Persiste el estado con los municipios asociados
-        } catch (ExcepcionAT ex) {
-            Logger.getLogger(RegistroUsuarioNormal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
             fD.registrarUsuarioNormal(usuarioNormal); // Persiste el usuario
         } catch (ExcepcionAT ex) {
             Logger.getLogger(RegistroUsuarioNormal.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Redirigir a una página de éxito
-        response.sendRedirect("home.html");
+        System.out.println("registrado en base de datos");
+        HttpSession session = request.getSession();
+        session.setAttribute("usuario", usuarioNormal);
+        response.sendRedirect("jsp/homeJSP.jsp");
     }
 
     /**
