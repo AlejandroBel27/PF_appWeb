@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-<<<<<<< HEAD
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+
+    <!-- Configuración de páginas de error -->
     <error-page>
         <error-code>404</error-code>
         <location>/errores/NotFound.jsp</location>
@@ -9,20 +12,12 @@
         <exception-type>java.lang.Throwable</exception-type>
         <location>/errores/JavaError.jsp</location>
     </error-page>
+
+    <!-- Declaración de servlets -->
     <servlet>
         <servlet-name>RegistroUsuarioNormal</servlet-name>
         <servlet-class>servlets.RegistroUsuarioNormal</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>RegistroUsuarioNormal</servlet-name>
-        <url-pattern>/RegistroUsuarioNormal</url-pattern>
-    </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
-=======
     <servlet>
         <servlet-name>SvAuth</servlet-name>
         <servlet-class>servlets.SvAuth</servlet-class>
@@ -39,10 +34,12 @@
         <servlet-name>SvTrailers</servlet-name>
         <servlet-class>servlets.SvTrailers</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SvHome</servlet-name>
-        <servlet-class>servlets.SvHome</servlet-class>
-    </servlet>
+    
+    <!-- Mapeo de servlets -->
+    <servlet-mapping>
+        <servlet-name>RegistroUsuarioNormal</servlet-name>
+        <url-pattern>/RegistroUsuarioNormal</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SvAuth</servlet-name>
         <url-pattern>/SvAuth</url-pattern>
@@ -59,9 +56,5 @@
         <servlet-name>SvTrailers</servlet-name>
         <url-pattern>/SvTrailers</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SvHome</servlet-name>
-        <url-pattern>/SvHome</url-pattern>
-    </servlet-mapping>
->>>>>>> linda
+
 </web-app>
