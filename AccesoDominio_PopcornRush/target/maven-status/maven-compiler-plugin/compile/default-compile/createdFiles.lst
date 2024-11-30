@@ -1,0 +1,4 @@
+fachada\IFachadaDominio.class
+fabrica\IFabricaDominio.class
+fachada\FachadaDominio.class
+fabrica\FabricaDominio.class

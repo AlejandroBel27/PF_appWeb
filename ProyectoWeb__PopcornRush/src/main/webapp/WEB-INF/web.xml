@@ -48,6 +48,10 @@
         <servlet-name>SvTrailers</servlet-name>
         <servlet-class>servlets.SvTrailers</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SvCrearPublicaciones</servlet-name>
+        <servlet-class>servlets.SvCrearPublicaciones</servlet-class>
+    </servlet>
     
     <!-- Mapeo de servlets -->
     <servlet-mapping>
@@ -73,6 +77,10 @@
     <servlet-mapping>
         <servlet-name>SvTrailers</servlet-name>
         <url-pattern>/SvTrailers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvCrearPublicaciones</servlet-name>
+        <url-pattern>/SvCrearPublicaciones</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Publicacion</title>
+    <title>Crear Publicación</title>
     <link rel="stylesheet" href="../styles/crearPublicacion.css">
     <link rel="stylesheet" href="../styles/header.css">
 </head>
@@ -23,59 +23,71 @@
         </h1>
         <nav>
             <ul class="nav-links">
-                <li> <a href="home.html"> Home</a></li>
-                <li> <a href="noticias.html"> Noticias</a></li>
-                <li> <a href="generos.html"> Generos</a></li>
-                <li> <a href="actores.html"> Actores</a></li>
-                <li> <a href="trailers.html"> Trailers</a></li>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="noticias.html">Noticias</a></li>
+                <li><a href="generos.html">Géneros</a></li>
+                <li><a href="actores.html">Actores</a></li>
+                <li><a href="trailers.html">Trailers</a></li>
             </ul>
         </nav>
-        <a href="login.html" class="button"> Iniciar Sesion</a>
+        <a href="login.html" class="button">Iniciar Sesión</a>
     </header>
 
     <div class="container">
         <main>
-            <button class="submit-button ">Publicar</button>
-            <div class="editor">
-                <textarea placeholder="Escribe tu post aquí..."></textarea>
-            </div>
-            <div class="form">
-                <label class= "label" for="titulo">Título del Post:</label>
-                <input type="text" id="titulo" placeholder="Título del Post">
+            <!-- Formulario que envía los datos al servlet -->
+            <form action="${pageContext.request.contextPath}/SvCrearPublicaciones" method="POST" enctype="multipart/form-data">
+                <div class="form">
+                    <!-- Campo de título -->
+                    <label class="label" for="titulo">Título del Post:</label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Título del Post" required>
 
-                <label class= "label" for="nombre">Nombre de la Película:</label>
-                <input type="text" id="nombre" placeholder="Nombre de la Película">
+                    <!-- Campo de nombre de película -->
+                    <label class="label" for="nombre">Nombre de la Película:</label>
+                    <input type="text" id="nombre" name="nombrePelicula" placeholder="Nombre de la Película" required>
 
-                <label class= "label" for="genero">Género de la Película:</label>
-                <select id="genero">
-                    <option>Seleccione...</option>
-                    <option>Acción</option>
-                    <option>Comedia</option>
-                    <option>Drama</option>
-                    <option>Terror</option>
-                    <option>Documental</option>
-                </select>
+                    <!-- Campo de género -->
+                    <label class="label" for="genero">Género de la Película:</label>
+                    <select id="genero" name="genero" required>
+                        <option value="">Seleccione...</option>
+                        <option value="Acción">Acción</option>
+                        <option value="Comedia">Comedia</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Terror">Terror</option>
+                        <option value="Documental">Documental</option>
+                    </select>
 
-                <label class="label">Imágenes del Post:</label>
-                <div class="imgs-post">
-                    <label for="imgPortada">Portada:</label>
-                    <input type="file" id="imgPortada" name="imgPortada" accept="image/*" required>
+                    <!-- Campo para subir imagen -->
+                    <label class="label">Imágenes del Post:</label>
+                    <div class="imgs-post">
+                        <label for="imgPortada">Portada:</label>
+                        <input type="file" id="imgPortada" name="imgPortada" accept="image/*" required>
+                    </div>
+
+                    <!-- Campo de calificación -->
+                    <label class="label">Calificación:</label>
+                    <div class="calificacion">
+                        <input id="radio1" type="radio" name="calificacion" value="5" required>
+                        <label for="radio1">★</label>
+                        <input id="radio2" type="radio" name="calificacion" value="4">
+                        <label for="radio2">★</label>
+                        <input id="radio3" type="radio" name="calificacion" value="3">
+                        <label for="radio3">★</label>
+                        <input id="radio4" type="radio" name="calificacion" value="2">
+                        <label for="radio4">★</label>
+                        <input id="radio5" type="radio" name="calificacion" value="1">
+                        <label for="radio5">★</label>
+                    </div>
                 </div>
 
-                <label class="label">Calificación:</label>
-                <div class="calificacion">
-                    <input id="radio1" type="radio" name="estrellas" value="5">
-                    <label for="radio1">★</label>
-                    <input id="radio2" type="radio" name="estrellas" value="4">
-                    <label for="radio2">★</label>
-                    <input id="radio3" type="radio" name="estrellas" value="3">
-                    <label for="radio3">★</label>
-                    <input id="radio4" type="radio" name="estrellas" value="2">
-                    <label for="radio4">★</label>
-                    <input id="radio5" type="radio" name="estrellas" value="1">
-                    <label for="radio5">★</label>
+                <!-- Campo del contenido del post -->
+                <div class="editor">
+                    <textarea name="contenido" placeholder="Escribe tu post aquí..." required></textarea>
                 </div>
-            </div>
+
+                <!-- Botón de envío -->
+                <button type="submit" class="submit-button">Publicar</button>
+            </form>
         </main>
     </div>
 </body>

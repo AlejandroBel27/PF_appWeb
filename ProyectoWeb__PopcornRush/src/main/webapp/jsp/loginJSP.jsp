@@ -43,7 +43,7 @@
                     
                     <button type="submit">Inicia Sesión</button>
                 </form>
-                <p class="register-link">¿No tienes cuenta? <a href="singup.html">Regístrate aquí</a></p>
+                <p class="register-link">¿No tienes cuenta? <a href="singupJSP.jsp">Regístrate aquí</a></p>
             </div>
     
             <div class="benefits-box">

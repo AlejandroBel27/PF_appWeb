@@ -51,6 +51,15 @@ public class Post implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar fechaHoraEdicion;
 
+    @Column(name = "genero", nullable = false, length = 100)
+    private String genero;
+
+    @Column(name = "imagen", nullable = true)
+    private String imagen;
+
+    @Column(name = "calificacion", nullable = true)
+    private Integer calificacion;
+
     public Post() {
     }
 
@@ -101,4 +110,27 @@ public class Post implements Serializable {
         this.fechaHoraEdicion = fechaHoraEdicion;
     }
 
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public Integer getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
+    }
 }
