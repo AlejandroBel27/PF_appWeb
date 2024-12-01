@@ -42,6 +42,13 @@ public interface IPostComunDAO {
     public PostComun obtenerPostComun(String titulo) throws ExcepcionAT;
     
     /**
+     * Método que busca y regresa al post en la base de datos que coincida con el id reqerido.
+     * @return 
+     * @throws ExcepcionAT 
+     */
+    public PostComun obtenerPostComunPoirId(long id) throws ExcepcionAT;
+    
+    /**
      * Método que obtiene todos los posts comunes en la base de datos.
      * @return
      * @throws ExcepcionAT 

@@ -57,6 +57,8 @@ public interface IFachadaDominio {
 
     public PostAnclado obtenerPostAnclado(String titulo) throws ExcepcionAT;
     
+    public PostAnclado obtenerPostAncladoPorId(long id) throws ExcepcionAT;
+    
     public List<PostAnclado> obtenerPostsAnclados() throws ExcepcionAT;
 
     // Métodos para UsuarioNormal
@@ -76,6 +78,8 @@ public interface IFachadaDominio {
     public void eliminarPostComun(PostComun postComun) throws ExcepcionAT;
 
     public PostComun obtenerPostComun(String titulo) throws ExcepcionAT;
+    
+    public PostComun obtenerPostComunPorId(long id) throws ExcepcionAT;
     
     public List<PostComun> obtenerPostsComunes() throws ExcepcionAT;
 }

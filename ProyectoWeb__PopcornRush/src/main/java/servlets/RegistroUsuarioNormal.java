@@ -161,7 +161,7 @@ public class RegistroUsuarioNormal extends HttpServlet {
         System.out.println("registrado en base de datos");
         HttpSession session = request.getSession();
         session.setAttribute("usuario", usuarioNormal);
-        response.sendRedirect("jsp/homeJSP.jsp");
+        response.sendRedirect(request.getContextPath() + "/Home");
     }
 
     /**

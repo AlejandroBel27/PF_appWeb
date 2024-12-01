@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  <!-- Importación de JSTL -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="java.net.URLEncoder" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +61,7 @@
                                         <h2>${post.titulo}</h2>
                                         <h3>Fecha: <fmt:formatDate value="${post.fechaHoraCreacion.time}" pattern="dd/MM/yyyy" /></h3>
                                         <p>${post.contenido}</p>
-                                        <a href="detallePost?id=${post.id}" class="leer-mas">Leer más</a>
+                                        <a href="${pageContext.request.contextPath}/DetallesPost?id=${post.id}">Leer más...</a>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -75,10 +77,10 @@
             <aside>
                 <c:choose>
                     <c:when test="${not empty sessionScope.usuario}">
-                        <a class="crearPost" href="crearPublicacionJSP.jsp">Crear publicación</a>
+                        <a class="crearPost" href="${pageContext.request.contextPath}/jsp/crearPublicacionJSP.jsp">Crear publicación</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="loginJSP.jsp" class="button">Iniciar Sesión</a>
+                        <a href="${pageContext.request.contextPath}/jsp/loginJSP.jsp" class="button">Iniciar Sesión</a>
                     </c:otherwise>
                 </c:choose>
             </aside>

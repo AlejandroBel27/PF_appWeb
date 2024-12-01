@@ -152,4 +152,31 @@ public class PostAncladoDAO implements IPostAncladoDAO {
         return posts;
     }
 
+    @Override
+    public PostAnclado obtenerPostAncladoPorId(long id) throws ExcepcionAT {
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+
+            String jpql = "SELECT p FROM PostAnclado p WHERE p.id = :id";
+            TypedQuery<PostAnclado> query = em.createQuery(jpql, PostAnclado.class);
+            query.setParameter("id", id);
+
+            PostAnclado postAnclado = query.getSingleResult();
+
+            em.getTransaction().commit();
+            return postAnclado;
+        } catch (Exception e) {
+            if (em != null) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al buscar post acnlado: " + e.getMessage());
+            throw new ExcepcionAT("Error al buscar post anclado", e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
 }

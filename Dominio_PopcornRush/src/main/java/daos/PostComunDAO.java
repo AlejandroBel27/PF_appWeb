@@ -150,4 +150,31 @@ public class PostComunDAO implements IPostComunDAO {
 
         return posts;
     }
+
+    @Override
+    public PostComun obtenerPostComunPoirId(long id) throws ExcepcionAT {
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+
+            String jpql = "SELECT p FROM PostComun p WHERE p.id = :id";
+            TypedQuery<PostComun> query = em.createQuery(jpql, PostComun.class);
+            query.setParameter("id", id);
+
+            PostComun postComun = query.getSingleResult();
+
+            em.getTransaction().commit();
+            return postComun;
+        } catch (Exception e) {
+            if (em != null) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al buscar post acnlado: " + e.getMessage());
+            throw new ExcepcionAT("Error al buscar post comun", e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 }

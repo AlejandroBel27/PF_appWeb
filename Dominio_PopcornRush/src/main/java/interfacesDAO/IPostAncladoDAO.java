@@ -42,6 +42,13 @@ public interface IPostAncladoDAO {
     public PostAnclado obtenerPostAnclado(String titulo) throws ExcepcionAT;
     
     /**
+     * Método que busca y regresa al post en la base de datos
+     * @return 
+     * @throws ExcepcionAT 
+     */
+    public PostAnclado obtenerPostAncladoPorId(long id) throws ExcepcionAT;
+    
+    /**
      * Método que obtiene todos los posts comunes en la base de datos.
      * @return
      * @throws ExcepcionAT 

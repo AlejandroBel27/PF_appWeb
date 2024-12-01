@@ -85,7 +85,7 @@ public class SvCrearPublicaciones extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                IFachadaDominio fachada = new FachadaDominio();
+        IFachadaDominio fachada = new FachadaDominio();
 
         // Obtener el usuario de la sesión
         HttpSession session = request.getSession();
@@ -112,7 +112,11 @@ public class SvCrearPublicaciones extends HttpServlet {
         // Crear la carpeta si no existe
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
-            uploadDir.mkdir();
+            if (uploadDir.mkdirs()) {
+                System.out.println("Directorio creado: " + uploadPath);
+            } else {
+                System.out.println("No se pudo crear el directorio: " + uploadPath);
+            }
         }
 
         // Generar un nombre único para la imagen
@@ -120,9 +124,15 @@ public class SvCrearPublicaciones extends HttpServlet {
 
         // Guardar la imagen en la carpeta
         String filePath = uploadPath + File.separator + uniqueFileName;
-        filePart.write(filePath);
+        try {
+            filePart.write(filePath);
+            System.out.println("Archivo guardado en: " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al guardar el archivo: " + e.getMessage());
+        }
 
-        // Guardar la ruta relativa para almacenar en la base de datos
+// Guardar la ruta relativa para la base de datos
         String imagen = "postImgs/" + uniqueFileName;
 
         // Obtener la fecha y hora actuales para fechaHoraCreacion y fechaHoraEdicion
@@ -137,11 +147,11 @@ public class SvCrearPublicaciones extends HttpServlet {
 
         // Crear el objeto PostComun
         PostComun postComun = new PostComun(
-            usuario,
-            fechaHoraCreacion,
-            titulo,
-            contenido,
-            fechaHoraEdicion
+                usuario,
+                fechaHoraCreacion,
+                titulo,
+                contenido,
+                fechaHoraEdicion
         );
         postComun.setGenero(genero);
         postComun.setImagen(imagen);
@@ -153,7 +163,7 @@ public class SvCrearPublicaciones extends HttpServlet {
 
             // Redirigir a la página de éxito
             session.setAttribute("post", postComun);
-            response.sendRedirect("jsp/homeJSP.jsp");
+            response.sendRedirect(request.getContextPath() + "/Home");
         } catch (ExcepcionAT ex) {
             Logger.getLogger(SvCrearPublicaciones.class.getName()).log(Level.SEVERE, null, ex);
         }

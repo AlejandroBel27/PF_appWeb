@@ -86,7 +86,7 @@ public class IniciarSesion extends HttpServlet {
                 System.out.println("UsuarioNormal encontrado: " + usuarioNormal.getNombreCompleto());
 
                 // Redirigir a la página de inicio para usuarios normales
-                response.sendRedirect("${pageContext.request.contextPath}/Home");
+                response.sendRedirect(request.getContextPath() + "/Home");
                 return;
             }
 
@@ -101,7 +101,7 @@ public class IniciarSesion extends HttpServlet {
                 System.out.println("Administrador encontrado: " + administrador.getNombreCompleto());
 
                 // Redirigir a la página de inicio para administradores
-                response.sendRedirect("${pageContext.request.contextPath}/Home");
+                response.sendRedirect(request.getContextPath() + "/Home");
                 return;
             }
 
