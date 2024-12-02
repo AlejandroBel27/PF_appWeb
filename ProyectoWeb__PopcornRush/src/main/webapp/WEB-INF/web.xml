@@ -56,6 +56,14 @@
         <servlet-class>servlets.DetallesPost</servlet-class>
     </servlet>
     <!-- Mapeo de servlets -->
+    <servlet>
+        <servlet-name>SvComentar</servlet-name>
+        <servlet-class>servlets.SvComentar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SvDashboard</servlet-name>
+        <servlet-class>servlets.SvDashboard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistroUsuarioNormal</servlet-name>
         <url-pattern>/RegistroUsuarioNormal</url-pattern>
@@ -92,8 +100,15 @@
         <servlet-name>DetallesPost</servlet-name>
         <url-pattern>/DetallesPost</url-pattern>
     </servlet-mapping>
-    
     <!-- define página de inicio -->
+    <servlet-mapping>
+        <servlet-name>SvComentar</servlet-name>
+        <url-pattern>/SvComentar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvDashboard</servlet-name>
+        <url-pattern>/SvDashboard</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Home</welcome-file>
     </welcome-file-list>

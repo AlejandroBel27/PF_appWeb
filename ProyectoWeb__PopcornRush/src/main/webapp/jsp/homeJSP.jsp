@@ -11,7 +11,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/home.css">
     </head>
 
@@ -62,6 +61,20 @@
                                         <h3>Fecha: <fmt:formatDate value="${post.fechaHoraCreacion.time}" pattern="dd/MM/yyyy" /></h3>
                                         <p>${post.contenido}</p>
                                         <a href="${pageContext.request.contextPath}/DetallesPost?id=${post.id}">Leer más...</a>
+
+                                        <!-- Opciones para admin -->
+                                        <c:if test="${sessionScope.usuario.rol == 'admin'}">
+                                            <div class="admin-options">
+                                                <form action="${pageContext.request.contextPath}/SvEliminarPost" method="post" style="display:inline;">
+                                                    <input type="hidden" name="postId" value="${post.id}" />
+                                                    <button type="submit" class="btn-delete">Eliminar</button>
+                                                </form>
+                                                <form action="${pageContext.request.contextPath}/SvFijarPost" method="post" style="display:inline;">
+                                                    <input type="hidden" name="postId" value="${post.id}" />
+                                                    <button type="submit" class="btn-pin">Fijar</button>
+                                                </form>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -78,6 +91,7 @@
                 <c:choose>
                     <c:when test="${not empty sessionScope.usuario}">
                         <a class="crearPost" href="${pageContext.request.contextPath}/jsp/crearPublicacionJSP.jsp">Crear publicación</a>
+                        <a class="button" href="${pageContext.request.contextPath}/SvDashboard">Mis publicaciones</a>
                     </c:when>
                     <c:otherwise>
                         <a href="${pageContext.request.contextPath}/jsp/loginJSP.jsp" class="button">Iniciar Sesión</a>

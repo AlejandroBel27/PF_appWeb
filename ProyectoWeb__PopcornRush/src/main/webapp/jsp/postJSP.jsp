@@ -58,20 +58,25 @@
             <!-- Sección de comentarios -->
             <section class="comments-area">
                 <c:choose>
-                    
+
                     <c:when test="${not empty sessionScope.usuario}">
                         <!-- Área de comentarios disponible solo para usuarios logueados -->
                         <div class="comment-box">
                             <h2>¡Deja tu comentario!</h2>
-                            <form action="#" method="post">
-                                <textarea name="comentar" placeholder="Escribe tu comentario aquí..." rows="5" required></textarea>
+                            <form action="${pageContext.request.contextPath}/SvComentar" method="post">
+                                <textarea name="contenido" placeholder="Escribe tu comentario aquí..." rows="5" required></textarea>
+                                <input type="hidden" name="postId" value="${post.id}">
                                 <button type="submit">Comentar</button>
                             </form>
                         </div>
                         <div class="comments-section">
                             <h3>Comentarios</h3>
-                            <!-- Aquí puedes iterar los comentarios cuando estén implementados -->
-                            <p>Pendiente de implementar.</p>
+                            <c:forEach var="comentario" items="${comentarios}">
+                                <div class="comment">
+                                    <p><strong>${comentario.usuarioNormal.nombre}</strong> (${comentario.fechaHora.time}):</p>
+                                    <p>${comentario.contenido}</p>
+                                </div>
+                            </c:forEach>
                         </div>
                     </c:when>
                     <c:otherwise>

@@ -5,6 +5,7 @@
 package interfacesDAO;
 
 import entidades.PostComun;
+import entidades.Usuario;
 import excepciones.ExcepcionAT;
 import java.util.List;
 
@@ -54,4 +55,11 @@ public interface IPostComunDAO {
      * @throws ExcepcionAT 
      */
     public List<PostComun> obtenerPosts() throws ExcepcionAT;
+    
+    /**
+     * Método que obtiene todos los posts comunes del usuario especificado.
+     * @return
+     * @throws ExcepcionAT 
+     */
+    public List<PostComun> obtenerPostsPorUsuario(Usuario usuario) throws ExcepcionAT;
 }

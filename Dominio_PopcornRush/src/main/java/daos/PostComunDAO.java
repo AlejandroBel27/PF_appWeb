@@ -5,6 +5,7 @@
 package daos;
 
 import entidades.PostComun;
+import entidades.Usuario;
 import excepciones.ExcepcionAT;
 import interfacesDAO.IPostComunDAO;
 import java.util.List;
@@ -177,4 +178,38 @@ public class PostComunDAO implements IPostComunDAO {
             }
         }
     }
+
+    @Override
+    public List<PostComun> obtenerPostsPorUsuario(Usuario usuario) throws ExcepcionAT {
+        if (usuario == null || usuario.getId() == null) {
+            throw new IllegalArgumentException("El usuario o su ID no pueden ser nulos.");
+        }
+
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+
+            // Consulta usando ID del usuario
+            String jpql = "SELECT p FROM PostComun p WHERE p.usuario.id = :usuarioId";
+            TypedQuery<PostComun> query = em.createQuery(jpql, PostComun.class);
+            query.setParameter("usuarioId", usuario.getId());
+
+            List<PostComun> posts = query.getResultList();
+
+            em.getTransaction().commit();
+            return posts;
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al buscar posts del usuario: " + e.getMessage());
+            throw new ExcepcionAT("Error al buscar posts del usuario", e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
 }

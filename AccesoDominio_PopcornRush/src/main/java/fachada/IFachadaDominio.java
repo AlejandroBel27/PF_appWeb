@@ -33,6 +33,8 @@ public interface IFachadaDominio {
     public Comentario obtenerComentarioPorPost(PostComun postComun) throws ExcepcionAT;
 
     public Comentario obtenerComentarioPorPadre(Comentario comentarioPadre) throws ExcepcionAT;
+    
+    public List<Comentario> obtenerComentariosPorPost(PostComun post) throws ExcepcionAT;
 
     // Métodos para Estado
     public void registrarEstado(Estado estado) throws ExcepcionAT;
@@ -82,4 +84,6 @@ public interface IFachadaDominio {
     public PostComun obtenerPostComunPorId(long id) throws ExcepcionAT;
     
     public List<PostComun> obtenerPostsComunes() throws ExcepcionAT;
+    
+    public List<PostComun> obtenerPostsComunesPorUsuario(Usuario usuario) throws ExcepcionAT;
 }

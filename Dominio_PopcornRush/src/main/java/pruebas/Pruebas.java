@@ -10,7 +10,7 @@ import daos.PostComunDAO;
 import daos.UsuarioNormalDAO;
 import entidades.Administrador;
 import entidades.Comentario;
-import static entidades.Comentario_.postComun;
+//import static entidades.Comentario_.postComun;
 import entidades.Estado;
 import entidades.Municipio;
 import entidades.PostComun;

@@ -1,0 +1,104 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 1 dic 2024, 23:40:42
+    Author     : PERSONAL
+*/
+
+/* Estilos principales para el Dashboard */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+main h1 {
+    font-size: 2.5rem;
+    color: #024CAA;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Tabla de publicaciones */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+table thead {
+    background-color: #024CAA;
+    color: #fff;
+}
+
+table th, table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table a {
+    color: #024CAA;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+table a:hover {
+    text-decoration: underline;
+}
+
+table tbody td .actions a {
+    margin-right: 1rem;
+}
+
+/* Botones */
+a.button {
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    background-color: #EC8305;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+a.button:hover {
+    background-color: #d97004;
+}
+
+/* Estilos del contenedor principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table, th, td {
+        font-size: 0.9rem;
+    }
+
+    main h1 {
+        font-size: 2rem;
+    }
+}

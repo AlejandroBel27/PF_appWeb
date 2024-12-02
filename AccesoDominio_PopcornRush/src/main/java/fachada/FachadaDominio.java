@@ -73,6 +73,11 @@ public class FachadaDominio implements IFachadaDominio {
     public Comentario obtenerComentarioPorPadre(Comentario comentarioPadre) throws ExcepcionAT {
         return fabrica.comentario().obtenerComentario(comentarioPadre);
     }
+    
+    @Override
+    public List<Comentario> obtenerComentariosPorPost(PostComun post) throws ExcepcionAT{
+        return fabrica.comentario().obtenerComentariosPorPost(post);
+    }
 
     // Métodos de la fachada para Estado
     @Override
@@ -188,5 +193,12 @@ public class FachadaDominio implements IFachadaDominio {
     public PostComun obtenerPostComunPorId(long id) throws ExcepcionAT {
         return fabrica.postComun().obtenerPostComunPoirId(id);
     }
+
+    @Override
+    public List<PostComun> obtenerPostsComunesPorUsuario(Usuario usuario) throws ExcepcionAT {
+        return fabrica.postComun().obtenerPostsPorUsuario(usuario);
+    }
+    
+    
     
 }

@@ -8,6 +8,7 @@ import entidades.Comentario;
 import entidades.PostComun;
 import excepciones.ExcepcionAT;
 import interfacesDAO.IComentarioDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -17,7 +18,8 @@ import javax.persistence.TypedQuery;
  *
  * @author galan
  */
-public class ComentarioDAO implements IComentarioDAO{
+public class ComentarioDAO implements IComentarioDAO {
+
     EntityManagerFactory emf;
     EntityManager em;
 
@@ -117,7 +119,7 @@ public class ComentarioDAO implements IComentarioDAO{
             }
         }
     }
-    
+
     @Override
     public Comentario obtenerComentario(Comentario comentarioPadre) throws ExcepcionAT {
         try {
@@ -144,4 +146,39 @@ public class ComentarioDAO implements IComentarioDAO{
             }
         }
     }
+
+    @Override
+    public List<Comentario> obtenerComentariosPorPost(PostComun post) throws ExcepcionAT {
+        EntityManager em = null;
+        try {
+            // Validar que el post no sea nulo y tenga un ID válido
+            if (post == null || post.getId() == null) {
+                throw new ExcepcionAT("El post no puede ser nulo y debe tener un ID válido.");
+            }
+
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+
+            // Consulta JPQL para obtener los comentarios asociados al post
+            String jpql = "SELECT c FROM Comentario c WHERE c.postComun = :post ORDER BY c.fechaHora ASC";
+            TypedQuery<Comentario> query = em.createQuery(jpql, Comentario.class);
+            query.setParameter("post", post);
+
+            List<Comentario> comentarios = query.getResultList();
+
+            em.getTransaction().commit();
+            return comentarios;
+        } catch (Exception e) {
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al obtener comentarios del post: " + e.getMessage());
+            throw new ExcepcionAT("Error al obtener comentarios para el post con ID: " + (post != null ? post.getId() : "desconocido"), e);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
 }

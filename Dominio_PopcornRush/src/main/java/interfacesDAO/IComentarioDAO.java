@@ -7,6 +7,7 @@ package interfacesDAO;
 import entidades.Comentario;
 import entidades.PostComun;
 import excepciones.ExcepcionAT;
+import java.util.List;
 
 /**
  *
@@ -47,4 +48,9 @@ public interface IComentarioDAO {
      * @throws ExcepcionAT 
      */
     public Comentario obtenerComentario(Comentario comentarioPadre) throws ExcepcionAT;
+    
+    /**
+     * Retorna la lista de comentarios del post.
+     */
+    public List<Comentario> obtenerComentariosPorPost(PostComun post) throws ExcepcionAT;
 }
