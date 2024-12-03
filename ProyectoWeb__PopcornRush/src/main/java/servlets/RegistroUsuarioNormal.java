@@ -6,7 +6,6 @@ package servlets;
 
 import entidades.Estado;
 import entidades.Municipio;
-import static entidades.PostComun_.usuario;
 import entidades.UsuarioNormal;
 import excepciones.ExcepcionAT;
 import fachada.FachadaDominio;

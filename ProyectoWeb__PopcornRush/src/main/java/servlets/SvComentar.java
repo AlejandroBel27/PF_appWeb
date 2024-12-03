@@ -4,6 +4,8 @@
  */
 package servlets;
 
+import apoyo.ComentarioRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entidades.Comentario;
 import entidades.PostComun;
@@ -55,33 +57,57 @@ public class SvComentar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        IFachadaDominio fachada = new FachadaDominio();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
         try {
-            // Obtener el ID del post desde los parámetros
+            // Obtener el ID del post desde la solicitud
             String postIdParam = request.getParameter("postId");
-            if (postIdParam == null) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "El ID del post es requerido.");
+            if (postIdParam == null || postIdParam.trim().isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"error\": \"El ID del post es requerido.\"}");
                 return;
             }
 
+            Long postId;
             try {
-                // Obtener el post desde la fachada (o directamente desde el parámetro)
-                Long postId = Long.parseLong(request.getParameter("postId"));
-                PostComun post = fachada.obtenerPostComunPorId(postId);
-
-                // Obtener los comentarios relacionados al post
-                List<Comentario> comentarios = fachada.obtenerComentariosPorPost(post);
-
-                // Pasar datos al JSP
-                request.setAttribute("post", post);
-                request.setAttribute("comentarios", comentarios);
-                request.getRequestDispatcher("/jsp/postJSP.jsp").forward(request, response);
-            } catch (ExcepcionAT e) {
-                e.printStackTrace();
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al obtener los comentarios del post.");
+                postId = Long.parseLong(postIdParam);
+            } catch (NumberFormatException e) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"error\": \"El ID del post debe ser un número válido.\"}");
+                return;
             }
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "El ID del post debe ser un número válido.");
+
+            // Crear la fachada y obtener los comentarios
+            IFachadaDominio fachada = new FachadaDominio();
+            List<Comentario> comentarios;
+            try {
+                PostComun post = fachada.obtenerPostComunPorId(postId);
+                if (post == null) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().write("{\"error\": \"Post no encontrado.\"}");
+                    return;
+                }
+                comentarios = post.getComentarios();
+            } catch (ExcepcionAT ex) {
+                Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, ex);
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().write("{\"error\": \"Error al obtener los comentarios.\"}");
+                return;
+            }
+
+            // Convertir los comentarios a JSON
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonComentarios = objectMapper.writeValueAsString(comentarios);
+
+            // Configurar la respuesta
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write(jsonComentarios);
+
+        } catch (Exception e) {
+            Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"error\": \"Ocurrió un error inesperado.\"}");
         }
     }
 
@@ -99,9 +125,6 @@ public class SvComentar extends HttpServlet {
         IFachadaDominio fachada = new FachadaDominio();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
-        out.write("{\"status\": \"success\"}");
-        out.flush();;
 
         try {
             // Verificar que el usuario esté logueado
@@ -124,10 +147,10 @@ public class SvComentar extends HttpServlet {
             // Convertir el JSON a un objeto Java
             String requestBody = sb.toString();
             ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, String> data = objectMapper.readValue(requestBody, Map.class);
+            ComentarioRequest data = objectMapper.readValue(requestBody, ComentarioRequest.class);
 
-            String contenido = data.get("contenido");
-            String postIdParam = data.get("postId");
+            String contenido = data.getContenido();
+            String postIdParam = data.getPostId();
 
             if (contenido == null || contenido.trim().isEmpty() || postIdParam == null) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -135,25 +158,46 @@ public class SvComentar extends HttpServlet {
                 return;
             }
 
-            Long postId = Long.parseLong(postIdParam);
+            Long postId = null;
+            try {
+                postId = Long.parseLong(postIdParam);
+            } catch (NumberFormatException e) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"error\": \"El ID del post debe ser un número válido.\"}");
+                return;
+            }
 
             // Buscar el post
-            PostComun post = fachada.obtenerPostComunPorId(postId);
+            PostComun post = null;
+            try {
+                post = fachada.obtenerPostComunPorId(postId);
+            } catch (ExcepcionAT ex) {
+                Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (post == null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                response.getWriter().write("{\"error\": \"Post no encontrado.\"}");
+                return;
+            }
 
             // Crear el nuevo comentario
             Comentario comentario = new Comentario(Calendar.getInstance(), contenido, post, usuario);
-            fachada.registrarComentario(comentario);
+            try {
+                fachada.registrarComentario(comentario);
+            } catch (ExcepcionAT ex) {
+                Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             // Responder con un JSON que confirme el éxito
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write("{\"message\": \"Comentario registrado exitosamente.\"}");
 
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, ex);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("{\"error\": \"Ocurrió un error al registrar el comentario.\"}");
         }
-
     }
 
     /**

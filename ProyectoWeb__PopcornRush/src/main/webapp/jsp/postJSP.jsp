@@ -60,6 +60,7 @@
             <section class="comments-area">
                 <c:choose>
                     <c:when test="${not empty sessionScope.usuario}">
+                        <!-- Caja para dejar un comentario -->
                         <div class="comment-box">
                             <h2>¡Deja tu comentario!</h2>
                             <form id="commentForm">
@@ -68,14 +69,13 @@
                                 <button type="button" id="submitComment">Comentar</button>
                             </form>
                         </div>
+                        <!-- Sección para mostrar los comentarios -->
                         <div class="comments-section">
                             <h3>Comentarios</h3>
-                            <c:forEach var="comentario" items="${comentarios}">
-                                <div class="comment">
-                                    <p><strong>${comentario.usuarioNormal.nombre}</strong> (${comentario.fechaHora.time}):</p>
-                                    <p>${comentario.contenido}</p>
-                                </div>
-                            </c:forEach>
+                            <div id="comentarios-container">
+                                <!-- Aquí se cargarán los comentarios dinámicamente con JS -->
+                                <p>Cargando comentarios...</p>
+                            </div>
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -85,6 +85,7 @@
                     </c:otherwise>
                 </c:choose>
             </section>
+
         </main>
     </body>
 </html>
