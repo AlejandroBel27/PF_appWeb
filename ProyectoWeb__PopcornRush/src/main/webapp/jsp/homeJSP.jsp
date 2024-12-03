@@ -71,10 +71,7 @@
                                         <!-- Opciones para admin -->
                                         <c:if test="${sessionScope.rol == 'Administrador'}">
                                             <div class="admin-options">
-                                                <form action="${pageContext.request.contextPath}/SvEliminarPost" method="post" style="display:inline;">
-                                                    <input type="hidden" name="postId" value="${post.id}" />
-                                                    <button type="submit" class="btn-delete">Eliminar</button>
-                                                </form>
+                                                <button onclick="eliminarPost(${post.id})">Eliminar publicación</button>
                                                 <button class="btn-pin" onclick="fijarPost(${post.id})">Fijar</button>
                                             </div>
                                         </c:if>

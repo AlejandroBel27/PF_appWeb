@@ -67,7 +67,6 @@
         <servlet-name>DetallesPostFijado</servlet-name>
         <servlet-class>servlets.DetallesPostFijado</servlet-class>
     </servlet>
-    <!-- Mapeo de servlets -->
     <servlet>
         <servlet-name>SvDashboard</servlet-name>
         <servlet-class>SvDashboard</servlet-class>
@@ -76,9 +75,18 @@
         <servlet-name>SvFijarPost</servlet-name>
         <servlet-class>servlets.SvFijarPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SvEliminarPost</servlet-name>
+        <servlet-class>SvEliminarPost</servlet-class>
+    </servlet>
+    <!-- Mapeo de servlets -->
     <servlet-mapping>
         <servlet-name>RegistroUsuarioNormal</servlet-name>
         <url-pattern>/RegistroUsuarioNormal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvEliminarPost</servlet-name>
+        <url-pattern>/SvEliminarPost</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SvLogout</servlet-name>
