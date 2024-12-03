@@ -18,19 +18,28 @@ document.addEventListener("DOMContentLoaded", function () {
                     const comentariosContainer = document.getElementById("comentarios-container");
                     comentariosContainer.innerHTML = ''; // Limpiar antes de agregar nuevos comentarios
 
-                    // Iterar sobre los comentarios y agregarlos al contenedor
                     data.forEach(comentario => {
                         const comentarioDiv = document.createElement("div");
                         comentarioDiv.classList.add("comment");
 
-                        const comentarioHTML = `
-                        <p><strong>${comentario.usuarioNormal.nombreCompleto}</strong> (${new Date(comentario.fechaHora.time).toLocaleString()}):</p>
-                        <p>${comentario.contenido}</p>
-                    `;
+                        // Convertir el valor en milisegundos a un objeto Date
+                        const fecha = new Date(comentario.fechaHora);  // Esto usará el valor en milisegundos
 
+                        // Formatear la fecha para que sea legible
+                        const fechaFormateada = fecha.toLocaleString();
+
+
+                        // Crear el HTML del comentario
+                        const comentarioHTML = `<div class="comentario-header">
+                            <img src="${comentario.usuarioNormal.avatar}" alt="Foto de ${comentario.usuarioNormal.nombreCompleto}" class="foto-usuario">
+                            <strong>${comentario.usuarioNormal.nombreCompleto}</strong> (${fechaFormateada}):
+                            </div><p>${comentario.contenido}</p>`;
+                        console.log(comentario.usuarioNormal.avatar);
                         comentarioDiv.innerHTML = comentarioHTML;
                         comentariosContainer.appendChild(comentarioDiv);
                     });
+
+
                 }
             })
             .catch(error => {
@@ -78,3 +87,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+function formatearFechaPersonalizada(fechaTexto) {
+    // Dividir la fecha en partes (YYYY-MM-DD y HH:mm:ss)
+    const [fecha, hora] = fechaTexto.split(" ");
+    const [año, mes, día] = fecha.split("-");
+    const [horas, minutos, segundos] = hora.split(":");
+
+    // Retornar en el formato deseado, por ejemplo: DD/MM/YYYY HH:mm:ss
+    return `${día}/${mes}/${año} ${horas}:${minutos}:${segundos}`;
+}

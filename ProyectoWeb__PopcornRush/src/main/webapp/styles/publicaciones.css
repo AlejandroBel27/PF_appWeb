@@ -137,3 +137,18 @@ main {
     color: #555;
     font-size: 14px;
 }
+
+.foto-usuario {
+    width: 40px;        /* Establece el ancho de la imagen */
+    height: 40px;       /* Establece el alto de la imagen */
+    border-radius: 50%; /* Hace la imagen circular */
+    object-fit: cover;  /* Asegura que la imagen se ajuste bien al tamaño (recorta si es necesario) */
+    margin-right: 10px; /* Espacio entre la imagen y el texto */
+}
+
+
+.comentario-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
