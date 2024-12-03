@@ -33,9 +33,15 @@
                     <c:choose>
                         <c:when test="${not empty postsAnclados}">
                             <c:forEach var="post" items="${postsAnclados}">
-                                <a href="detallePost?id=${post.id}">
+                                <div class="post">
                                     <img src="${post.imagen}" alt="${post.titulo}" />
-                                </a>
+                                    <div>
+                                        <h2>${post.titulo}</h2>
+                                        <h3>Fecha: <fmt:formatDate value="${post.fechaHoraCreacion.time}" pattern="dd/MM/yyyy" /></h3>
+                                        <p>${post.contenido}</p>
+                                        <a href="${pageContext.request.contextPath}/DetallesPostFijado?id=${post.id}">Leer más...</a>
+                                    </div>
+                                </div>
                             </c:forEach>
                         </c:when>
                         <c:otherwise>

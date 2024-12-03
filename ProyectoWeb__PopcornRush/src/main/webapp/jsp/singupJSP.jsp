@@ -58,25 +58,15 @@
                             <option value="otro">Otro</option>
                         </select>
                     </div>
-                
+                    
                     <div class="form-group">
                         <label for="state">Estado:</label>
-                        <select id="state" name="state" required>
-                            <option value="">Selecciona tu estado</option>
-                            <option value="estado1">Estado 1</option>
-                            <option value="estado2">Estado 2</option>
-                            <option value="estado3">Estado 3</option>
-                        </select>
+                        <input type="text" id="state" name="state" placeholder="Ingresa tu estado" required>
                     </div>
-                
+                  
                     <div class="form-group">
-                        <label for="city">Municipio:</label>
-                        <select id="city" name="city" required>
-                            <option value="">Selecciona tu municipio</option>
-                            <option value="municipio1">Municipio 1</option>
-                            <option value="municipio2">Municipio 2</option>
-                            <option value="municipio3">Municipio 3</option>
-                        </select>
+                        <label for="city">Estado:</label>
+                        <input type="text" id="city" name="city" placeholder="Ingresa tu ciudad" required>
                     </div>
                 
                     <div class="form-group">

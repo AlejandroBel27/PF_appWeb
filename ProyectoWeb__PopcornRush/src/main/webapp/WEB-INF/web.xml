@@ -63,6 +63,10 @@
         <servlet-name>DetallesPost</servlet-name>
         <servlet-class>servlets.DetallesPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DetallesPostFijado</servlet-name>
+        <servlet-class>servlets.DetallesPostFijado</servlet-class>
+    </servlet>
     <!-- Mapeo de servlets -->
     <servlet>
         <servlet-name>SvDashboard</servlet-name>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>DetallesPost</servlet-name>
         <url-pattern>/DetallesPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetallesPostFijado</servlet-name>
+        <url-pattern>/DetallesPostFijado</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SvComentar</servlet-name>

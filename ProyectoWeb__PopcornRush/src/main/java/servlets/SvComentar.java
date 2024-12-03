@@ -8,6 +8,7 @@ import apoyo.ComentarioRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entidades.Comentario;
+import entidades.PostAnclado;
 import entidades.PostComun;
 import entidades.UsuarioNormal;
 import excepciones.ExcepcionAT;
@@ -80,20 +81,18 @@ public class SvComentar extends HttpServlet {
 
             // Crear la fachada y obtener los comentarios
             IFachadaDominio fachada = new FachadaDominio();
-            List<Comentario> comentarios;
+            List<Comentario> comentarios=null;
+            PostComun postComun=null;
             try {
-                PostComun post = fachada.obtenerPostComunPorId(postId);
-                if (post == null) {
-                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                    response.getWriter().write("{\"error\": \"Post no encontrado.\"}");
-                    return;
-                }
-                comentarios = post.getComentarios();
-            } catch (ExcepcionAT ex) {
-                Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, ex);
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                response.getWriter().write("{\"error\": \"Error al obtener los comentarios.\"}");
+                postComun = fachada.obtenerPostComunPorId(postId);
+            } catch (Exception e) {
+                Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, e);
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                response.getWriter().write("{\"error\": \"Post no o encontrado o es PostFijado.\"}");
                 return;
+            }
+            if (postComun != null) {
+                comentarios = postComun.getComentarios();
             }
 
             // Convertir los comentarios a JSON

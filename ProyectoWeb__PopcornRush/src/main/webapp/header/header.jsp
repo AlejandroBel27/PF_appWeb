@@ -20,11 +20,11 @@
             </h1>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="${pageContext.request.contextPath}/jsp/homeJSP.jsp">Home</a></li>
-                    <li><a href="noticias.html">Noticias</a></li>
-                    <li><a href="generos.html">Géneros</a></li>
-                    <li><a href="actores.html">Actores</a></li>
-                    <li><a href="trailers.html">Trailers</a></li>
+                    <li><a href="${pageContext.request.contextPath}/Home">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/noticias.jsp">Noticias</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/generos.jsp">Géneros</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/actores.jsp">Actores</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/trailers.jsp">Trailers</a></li>
                 </ul>
             </nav>
 

@@ -130,6 +130,22 @@ aside {
     top: 2rem;
 }
 
+.lines {
+    width: 100%; /* Abarca todo el ancho de la página */
+    text-align: center; /* Centra el contenido */
+    margin: 20px 0; /* Espaciado superior e inferior */
+}
+
+.lines p {
+    margin: 0;
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+    color: #555; /* Color de texto neutro */
+    letter-spacing: 2px; /* Espaciado entre caracteres */
+    border-top: 1px solid #ccc; /* Línea superior */
+    padding-top: 10px; /* Espaciado interno */
+    line-height: 1.5; /* Altura de las líneas */
+}
+
 /* Estilo para los botones */
 aside a.button, aside a.crearPost {
     display: block;

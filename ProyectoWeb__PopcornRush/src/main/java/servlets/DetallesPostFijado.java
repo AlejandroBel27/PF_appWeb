@@ -4,6 +4,7 @@
  */
 package servlets;
 
+import entidades.PostAnclado;
 import entidades.PostComun;
 import fachada.FachadaDominio;
 import fachada.IFachadaDominio;
@@ -18,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author PERSONAL
  */
-public class DetallesPost extends HttpServlet {
+public class DetallesPostFijado extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,12 +61,12 @@ public class DetallesPost extends HttpServlet {
 
         try {
             // Obtener el post de la base de datos
-            PostComun post = fachada.obtenerPostComunPorId(idLong);
+            PostAnclado post = fachada.obtenerPostAncladoPorId(idLong);
 
             if (post != null) {
                 // Pasar el post como atributo y redirigir al JSP
                 request.setAttribute("post", post);
-                request.setAttribute("anclado", false);
+                request.setAttribute("anclado", true);
                 request.getRequestDispatcher("/jsp/postJSP.jsp").forward(request, response);
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "No se encontró el post solicitado.");

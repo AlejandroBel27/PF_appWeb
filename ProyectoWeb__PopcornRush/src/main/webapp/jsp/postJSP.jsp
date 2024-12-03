@@ -56,36 +56,43 @@
                 </p>
             </section>
 
-            <!-- Sección de comentarios -->
-            <section class="comments-area">
-                <c:choose>
-                    <c:when test="${not empty sessionScope.usuario}">
-                        <!-- Caja para dejar un comentario -->
-                        <div class="comment-box">
-                            <h2>¡Deja tu comentario!</h2>
-                            <form id="commentForm">
-                                <textarea id="contenido" placeholder="Escribe tu comentario aquí..." rows="5" required></textarea>
-                                <input type="hidden" id="postId" value="${post.id}">
-                                <button type="button" id="submitComment">Comentar</button>
-                            </form>
-                        </div>
-                        <!-- Sección para mostrar los comentarios -->
-                        <div class="comments-section">
-                            <h3>Comentarios</h3>
-                            <div id="comentarios-container">
-                                <!-- Aquí se cargarán los comentarios dinámicamente con JS -->
-                                <p>Cargando comentarios...</p>
-                            </div>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <p class="login-prompt">
-                            Debes <a href="${pageContext.request.contextPath}/jsp/loginJSP.jsp">Iniciar sesión</a> para dejar un comentario.
-                        </p>
-                    </c:otherwise>
-                </c:choose>
-            </section>
-
+            <body data-anclado="${sessionScope.anclado}">
+            <c:choose>
+                <c:when test="${sessionScope.anclado}">
+                    <!-- No mostrar comentarios -->
+                    <p>Este post está anclado. Los comentarios están deshabilitados.</p>
+                </c:when>
+                <c:otherwise>
+                    <section class="comments-area">
+                        <c:choose>
+                            <c:when test="${not empty sessionScope.usuario}">
+                                <!-- Caja para dejar un comentario -->
+                                <div class="comment-box">
+                                    <h2>¡Deja tu comentario!</h2>
+                                    <form id="commentForm">
+                                        <textarea id="contenido" placeholder="Escribe tu comentario aquí..." rows="5" required></textarea>
+                                        <input type="hidden" id="postId" value="${post.id}">
+                                        <button type="button" id="submitComment">Comentar</button>
+                                    </form>
+                                </div>
+                                <!-- Sección para mostrar los comentarios -->
+                                <div class="comments-section">
+                                    <h3>Comentarios</h3>
+                                    <div id="comentarios-container">
+                                        <!-- Aquí se cargarán los comentarios dinámicamente con JS -->
+                                        <p>Cargando comentarios...</p>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="login-prompt">
+                                    Debes <a href="${pageContext.request.contextPath}/jsp/loginJSP.jsp">Iniciar sesión</a> para dejar un comentario.
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
+                    </section>
+                </c:otherwise>
+            </c:choose>
         </main>
     </body>
 </html>
