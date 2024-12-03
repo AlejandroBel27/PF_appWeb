@@ -67,7 +67,7 @@ public class DetallesPostFijado extends HttpServlet {
                 // Pasar el post como atributo y redirigir al JSP
                 request.setAttribute("post", post);
                 request.setAttribute("anclado", true);
-                request.getRequestDispatcher("/jsp/postJSP.jsp").forward(request, response);
+                request.getRequestDispatcher("/jsp/postAncladoJSP.jsp").forward(request, response);
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "No se encontró el post solicitado.");
             }
