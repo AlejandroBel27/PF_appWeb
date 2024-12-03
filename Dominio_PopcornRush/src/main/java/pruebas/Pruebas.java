@@ -38,34 +38,34 @@ public class Pruebas {
         Municipio municipio= new Municipio("Cajeme", estado);
         Calendar calendario = Calendar.getInstance();
         calendario.set(2004, Calendar.AUGUST, 13);
-        Administrador admin= new Administrador("xd", "xd", "xd", "6441401671", "xd", "Ciudad Obregon", calendario, "Hombre", municipio);
+        Administrador admin= new Administrador("Pablo Galan", "admin@gmail.com", "123", "6441401671", "xd", "Ciudad Obregon", calendario, "Hombre", municipio);
         try {
             administradorDAO.registrarAdministrador(admin);
         } catch (ExcepcionAT ex) {
             Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        UsuarioNormalDAO usuarioDAO= new UsuarioNormalDAO();
-        UsuarioNormal usuario= new UsuarioNormal("Pablo", "xd", "xd", "6441401671", "xd", "Ciudad Obregon", calendario, "Hombre", municipio);
-        try {
-            usuarioDAO.registrarUsuarioNormal(usuario);
-        } catch (ExcepcionAT ex) {
-            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        PostComunDAO postComunDAO= new PostComunDAO();
-        PostComun postComun= new PostComun(usuario, calendario, "Hola", "excelente", calendario, "Buenas", null, 3);
-        try {
-            postComunDAO.registrarPostComun(postComun);
-        } catch (ExcepcionAT ex) {
-            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ComentarioDAO comentarioDAO= new ComentarioDAO();
-        Comentario comentario= new Comentario(calendario, "buen meme bro", postComun, usuario);
-        try {
-            comentarioDAO.registrarComentario(comentario);
-        } catch (ExcepcionAT ex) {
-            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        UsuarioNormalDAO usuarioDAO= new UsuarioNormalDAO();
+//        UsuarioNormal usuario= new UsuarioNormal("Pablo", "galanes@gmail.com", "123", "6441401671", "xd", "Ciudad Obregon", calendario, "Hombre", municipio);
+//        try {
+//            usuarioDAO.registrarUsuarioNormal(usuario);
+//        } catch (ExcepcionAT ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        PostComunDAO postComunDAO= new PostComunDAO();
+//        PostComun postComun= new PostComun(usuario, calendario, "Hola", "excelente", calendario, "Buenas", null, 3);
+//        try {
+//            postComunDAO.registrarPostComun(postComun);
+//        } catch (ExcepcionAT ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        ComentarioDAO comentarioDAO= new ComentarioDAO();
+//        Comentario comentario= new Comentario(calendario, "buen meme bro", postComun, usuario);
+//        try {
+//            comentarioDAO.registrarComentario(comentario);
+//        } catch (ExcepcionAT ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
 //        PostComunDAO postComunDAO = new PostComunDAO();
 //        PostComun post=null;

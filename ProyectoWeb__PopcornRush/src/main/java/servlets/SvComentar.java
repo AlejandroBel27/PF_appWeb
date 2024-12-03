@@ -4,6 +4,7 @@
  */
 package servlets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entidades.Comentario;
 import entidades.PostComun;
 import entidades.UsuarioNormal;
@@ -16,8 +17,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,46 +97,63 @@ public class SvComentar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         IFachadaDominio fachada = new FachadaDominio();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        out.write("{\"status\": \"success\"}");
+        out.flush();;
+
         try {
             // Verificar que el usuario esté logueado
             UsuarioNormal usuario = (UsuarioNormal) request.getSession().getAttribute("usuario");
             if (usuario == null) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Debe estar logueado para comentar.");
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.getWriter().write("{\"error\": \"Debe estar logueado para comentar.\"}");
                 return;
             }
 
-            // Obtener datos del formulario
-            String contenido = request.getParameter("contenido");
-            String postIdParam = request.getParameter("postId");
+            // Leer el cuerpo de la solicitud (JSON)
+            StringBuilder sb = new StringBuilder();
+            String line;
+            try ( BufferedReader reader = request.getReader()) {
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+            }
+
+            // Convertir el JSON a un objeto Java
+            String requestBody = sb.toString();
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, String> data = objectMapper.readValue(requestBody, Map.class);
+
+            String contenido = data.get("contenido");
+            String postIdParam = data.get("postId");
 
             if (contenido == null || contenido.trim().isEmpty() || postIdParam == null) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Contenido o ID del post inválido.");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"error\": \"Contenido o ID del post inválido.\"}");
                 return;
             }
 
             Long postId = Long.parseLong(postIdParam);
 
             // Buscar el post
-            PostComun post = null;
-            try {
-                post = fachada.obtenerPostComunPorId(postId);
-            } catch (ExcepcionAT ex) {
-                Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            PostComun post = fachada.obtenerPostComunPorId(postId);
 
             // Crear el nuevo comentario
             Comentario comentario = new Comentario(Calendar.getInstance(), contenido, post, usuario);
-            try {
-                fachada.registrarComentario(comentario);
-            } catch (ExcepcionAT ex) {
-                Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            fachada.registrarComentario(comentario);
 
-            // Redirigir de nuevo al detalle del post
-            response.sendRedirect(request.getContextPath() + "/DetallesPost?id=" + postId);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "El ID del post debe ser un número válido.");
+            // Responder con un JSON que confirme el éxito
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("{\"message\": \"Comentario registrado exitosamente.\"}");
+
+        } catch (Exception ex) {
+            Logger.getLogger(SvComentar.class.getName()).log(Level.SEVERE, null, ex);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"error\": \"Ocurrió un error al registrar el comentario.\"}");
         }
+
     }
 
     /**

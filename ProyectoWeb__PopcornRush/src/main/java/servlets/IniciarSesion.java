@@ -74,47 +74,48 @@ public class IniciarSesion extends HttpServlet {
         String correo = request.getParameter("email");
         String contrasenia = request.getParameter("password");
 
+        UsuarioNormal usuarioNormal = null;
         try {
             // Verificar si es un UsuarioNormal
-            UsuarioNormal usuarioNormal = fD.obtenerUsuarioNormal(correo, contrasenia);
-
-            if (usuarioNormal != null) {
-                // UsuarioNormal encontrado
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", usuarioNormal);
-                session.setAttribute("rol", "UsuarioNormal");
-                System.out.println("UsuarioNormal encontrado: " + usuarioNormal.getNombreCompleto());
-
-                // Redirigir a la página de inicio para usuarios normales
-                response.sendRedirect(request.getContextPath() + "/Home");
-                return;
-            }
-
-            // Si no es UsuarioNormal, verificar si es un Administrador
-            Administrador administrador = fD.obtenerAdministrador(correo, contrasenia);
-
-            if (administrador != null) {
-                // Administrador encontrado
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", administrador);
-                session.setAttribute("rol", "Administrador");
-                System.out.println("Administrador encontrado: " + administrador.getNombreCompleto());
-
-                // Redirigir a la página de inicio para administradores
-                response.sendRedirect(request.getContextPath() + "/Home");
-                return;
-            }
-
-            // Si no es ninguno de los dos, mostrar mensaje de error en login
-            System.out.println("Usuario no encontrado en la base de datos.");
-            request.setAttribute("error", "Correo o contraseña incorrectos.");
-            request.getRequestDispatcher("jsp/loginJSP.jsp").forward(request, response);
-
+            usuarioNormal = fD.obtenerUsuarioNormal(correo, contrasenia);
         } catch (ExcepcionAT ex) {
             // Manejar errores en la base de datos u otras excepciones
             Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
-            request.getRequestDispatcher("errores/JavaError.jsp").forward(request, response);
         }
+        if (usuarioNormal != null) {
+            // UsuarioNormal encontrado
+            HttpSession session = request.getSession();
+            session.setAttribute("usuario", usuarioNormal);
+            session.setAttribute("rol", "UsuarioNormal");
+            System.out.println("UsuarioNormal encontrado: " + usuarioNormal.getNombreCompleto());
+            
+            // Redirigir a la página de inicio para usuarios normales
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
+        Administrador administrador = null;
+        try {
+            // Si no es UsuarioNormal, verificar si es un Administrador
+            administrador = fD.obtenerAdministrador(correo, contrasenia);
+        } catch (ExcepcionAT ex) {
+            // Manejar errores en la base de datos u otras excepciones
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (administrador != null) {
+            // Administrador encontrado
+            HttpSession session = request.getSession();
+            session.setAttribute("usuario", administrador);
+            session.setAttribute("rol", "Administrador");
+            System.out.println("Administrador encontrado: " + administrador.getNombreCompleto());
+            
+            // Redirigir a la página de inicio para administradores
+            response.sendRedirect(request.getContextPath() + "/Home");
+            return;
+        }
+        // Si no es ninguno de los dos, mostrar mensaje de error en login
+        System.out.println("Usuario no encontrado en la base de datos.");
+        request.setAttribute("error", "Correo o contraseña incorrectos.");
+        request.getRequestDispatcher("jsp/loginJSP.jsp").forward(request, response);
     }
 
     /**

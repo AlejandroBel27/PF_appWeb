@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${post.titulo}</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/publicaciones.css">
+        <script src="${pageContext.request.contextPath}/jss/postJSS.js"></script>
     </head>
     <body>
         <%@ include file="../header/header.jsp" %>
@@ -59,16 +60,15 @@
             <section class="comments-area">
                 <c:choose>
                     <c:when test="${not empty sessionScope.usuario}">
-                        <!-- Área de comentarios disponible solo para usuarios logueados -->
                         <div class="comment-box">
                             <h2>¡Deja tu comentario!</h2>
                             <form id="commentForm">
-                                <textarea id="comentarioContenido" name="contenido" placeholder="Escribe tu comentario aquí..." rows="5" required></textarea>
-                                <input type="hidden" id="postId" name="postId" value="${post.id}">
-                                <button type="submit">Comentar</button>
+                                <textarea id="contenido" placeholder="Escribe tu comentario aquí..." rows="5" required></textarea>
+                                <input type="hidden" id="postId" value="${post.id}">
+                                <button type="button" id="submitComment">Comentar</button>
                             </form>
                         </div>
-                        <div class="comments-section" id="commentsSection">
+                        <div class="comments-section">
                             <h3>Comentarios</h3>
                             <c:forEach var="comentario" items="${comentarios}">
                                 <div class="comment">
@@ -79,7 +79,6 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <!-- Mensaje si no hay usuario logueado -->
                         <p class="login-prompt">
                             Debes <a href="${pageContext.request.contextPath}/jsp/loginJSP.jsp">Iniciar sesión</a> para dejar un comentario.
                         </p>

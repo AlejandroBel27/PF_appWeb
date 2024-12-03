@@ -48,6 +48,10 @@
         <servlet-class>servlets.SvTrailers</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SvComentar</servlet-name>
+        <servlet-class>SvComentar</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SvCrearPublicaciones</servlet-name>
         <servlet-class>servlets.SvCrearPublicaciones</servlet-class>
     </servlet>
@@ -60,10 +64,6 @@
         <servlet-class>servlets.DetallesPost</servlet-class>
     </servlet>
     <!-- Mapeo de servlets -->
-    <servlet>
-        <servlet-name>SvComentar</servlet-name>
-        <servlet-class>servlets.SvComentar</servlet-class>
-    </servlet>
     <servlet>
         <servlet-name>SvDashboard</servlet-name>
         <servlet-class>servlets.SvDashboard</servlet-class>
@@ -108,7 +108,6 @@
         <servlet-name>DetallesPost</servlet-name>
         <url-pattern>/DetallesPost</url-pattern>
     </servlet-mapping>
-    <!-- define página de inicio -->
     <servlet-mapping>
         <servlet-name>SvComentar</servlet-name>
         <url-pattern>/SvComentar</url-pattern>
