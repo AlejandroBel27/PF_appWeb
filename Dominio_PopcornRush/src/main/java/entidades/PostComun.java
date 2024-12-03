@@ -36,14 +36,14 @@ public class PostComun extends Post implements Serializable {
 
     public PostComun() {
     }
-    
-    public PostComun(Usuario usuario, Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
-        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
+
+    public PostComun(Usuario usuario, Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion, String genero, String imagen, Integer calificacion) {
+        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion, genero, imagen, calificacion);
         this.usuario = usuario;
     }
-    
-    public PostComun(Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
-        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
+
+    public PostComun(Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion, String genero, String imagen, Integer calificacion) {
+        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion, genero, imagen, calificacion);
     }
 
     public List<Comentario> getComentarios() {

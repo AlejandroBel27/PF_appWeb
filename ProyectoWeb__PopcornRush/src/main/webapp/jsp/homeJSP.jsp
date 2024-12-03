@@ -63,7 +63,7 @@
                                         <a href="${pageContext.request.contextPath}/DetallesPost?id=${post.id}">Leer más...</a>
 
                                         <!-- Opciones para admin -->
-                                        <c:if test="${sessionScope.usuario.rol == 'admin'}">
+                                        <c:if test="${sessionScope.rol == 'Administrador'}">
                                             <div class="admin-options">
                                                 <form action="${pageContext.request.contextPath}/SvEliminarPost" method="post" style="display:inline;">
                                                     <input type="hidden" name="postId" value="${post.id}" />

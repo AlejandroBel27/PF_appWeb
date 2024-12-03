@@ -17,21 +17,7 @@
 </head>
 
 <body>
-    <header class="header">
-        <h1 class="logo">
-            <span class="colorNaranja">PopCorn</span><span class="colorAzul">Rush</span>
-        </h1>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="noticias.html">Noticias</a></li>
-                <li><a href="generos.html">Géneros</a></li>
-                <li><a href="actores.html">Actores</a></li>
-                <li><a href="trailers.html">Trailers</a></li>
-            </ul>
-        </nav>
-        <a href="login.html" class="button">Iniciar Sesión</a>
-    </header>
+    <%@ include file="../header/header.jsp" %>
 
     <div class="container">
         <main>

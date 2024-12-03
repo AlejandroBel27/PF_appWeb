@@ -29,14 +29,15 @@ public class FiltroAutenticacion implements Filter {
         return sesion != null && sesion.getAttribute("usuario") != null;
     }
 
-    // Método para verificar si la URL solicitada es privada
+    // Método para verificar si la URL solicitada es pública
     private boolean esUrlPublica(String ruta) {
+        // Se consideran privadas las URLs dentro de la lista
         for (String url : urlPrivadas) {
             if (ruta.equals(url)) {
                 return false; // Coincide con una ruta privada
             }
         }
-        return true; // Por defecto, es publica
+        return true; // Si no coincide con ninguna ruta privada, es pública
     }
 
     // Método para obtener la ruta solicitada

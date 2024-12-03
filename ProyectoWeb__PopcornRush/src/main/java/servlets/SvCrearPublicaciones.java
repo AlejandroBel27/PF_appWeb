@@ -151,11 +151,11 @@ public class SvCrearPublicaciones extends HttpServlet {
                 fechaHoraCreacion,
                 titulo,
                 contenido,
-                fechaHoraEdicion
+                fechaHoraEdicion,
+                genero,
+                imagen,
+                calificacion
         );
-        postComun.setGenero(genero);
-        postComun.setImagen(imagen);
-        postComun.setCalificacion(calificacion);
 
         try {
             // Registrar la publicación usando la fachada

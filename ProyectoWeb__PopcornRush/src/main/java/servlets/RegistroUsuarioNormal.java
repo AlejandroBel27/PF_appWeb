@@ -161,6 +161,7 @@ public class RegistroUsuarioNormal extends HttpServlet {
         System.out.println("registrado en base de datos");
         HttpSession session = request.getSession();
         session.setAttribute("usuario", usuarioNormal);
+        session.setAttribute("rol", "UsuarioNormal");
         response.sendRedirect(request.getContextPath() + "/Home");
     }
 

@@ -82,7 +82,7 @@ public class IniciarSesion extends HttpServlet {
                 // UsuarioNormal encontrado
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuarioNormal);
-                session.setAttribute("tipoUsuario", "UsuarioNormal");
+                session.setAttribute("rol", "UsuarioNormal");
                 System.out.println("UsuarioNormal encontrado: " + usuarioNormal.getNombreCompleto());
 
                 // Redirigir a la página de inicio para usuarios normales
@@ -97,7 +97,7 @@ public class IniciarSesion extends HttpServlet {
                 // Administrador encontrado
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", administrador);
-                session.setAttribute("tipoUsuario", "Administrador");
+                session.setAttribute("rol", "Administrador");
                 System.out.println("Administrador encontrado: " + administrador.getNombreCompleto());
 
                 // Redirigir a la página de inicio para administradores

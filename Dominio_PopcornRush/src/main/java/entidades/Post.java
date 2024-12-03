@@ -63,12 +63,17 @@ public class Post implements Serializable {
     public Post() {
     }
 
-    public Post(Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
+    public Post(Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion, String genero, String imagen, Integer calificacion) {
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
         this.fechaHoraEdicion = fechaHoraEdicion;
+        this.genero = genero;
+        this.imagen = imagen;
+        this.calificacion = calificacion;
     }
+    
+    
 
     public Long getId() {
         return id;

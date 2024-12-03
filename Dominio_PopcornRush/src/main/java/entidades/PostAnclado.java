@@ -30,9 +30,16 @@ public class PostAnclado extends Post implements Serializable {
     public PostAnclado() {
     }
 
-    public PostAnclado(Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion) {
-        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion);
-    } 
+    public PostAnclado(Administrador administrador, Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion, String genero, String imagen, Integer calificacion) {
+        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion, genero, imagen, calificacion);
+        this.administrador = administrador;
+    }
+
+    public PostAnclado(Calendar fechaHoraCreacion, String titulo, String contenido, Calendar fechaHoraEdicion, String genero, String imagen, Integer calificacion) {
+        super(fechaHoraCreacion, titulo, contenido, fechaHoraEdicion, genero, imagen, calificacion);
+    }
+
+    
 
     public Administrador getAdministrador() {
         return administrador;
