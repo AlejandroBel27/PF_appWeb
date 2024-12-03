@@ -69,10 +69,7 @@
                                                     <input type="hidden" name="postId" value="${post.id}" />
                                                     <button type="submit" class="btn-delete">Eliminar</button>
                                                 </form>
-                                                <form action="${pageContext.request.contextPath}/SvFijarPost" method="post" style="display:inline;">
-                                                    <input type="hidden" name="postId" value="${post.id}" />
-                                                    <button type="submit" class="btn-pin">Fijar</button>
-                                                </form>
+                                                <button class="btn-pin" onclick="fijarPost(${post.id})">Fijar</button>
                                             </div>
                                         </c:if>
                                     </div>
@@ -99,6 +96,11 @@
                 </c:choose>
             </aside>
         </main>
+
+        <script>
+                const contextPath = '${pageContext.request.contextPath}';
+        </script>
+        <script src="${pageContext.request.contextPath}/jss/homeJSS.js"></script>
     </body>
 
 </html>
