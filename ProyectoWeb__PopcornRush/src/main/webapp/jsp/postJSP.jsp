@@ -58,18 +58,17 @@
             <!-- Sección de comentarios -->
             <section class="comments-area">
                 <c:choose>
-
                     <c:when test="${not empty sessionScope.usuario}">
                         <!-- Área de comentarios disponible solo para usuarios logueados -->
                         <div class="comment-box">
                             <h2>¡Deja tu comentario!</h2>
-                            <form action="${pageContext.request.contextPath}/SvComentar" method="post">
-                                <textarea name="contenido" placeholder="Escribe tu comentario aquí..." rows="5" required></textarea>
-                                <input type="hidden" name="postId" value="${post.id}">
+                            <form id="commentForm">
+                                <textarea id="comentarioContenido" name="contenido" placeholder="Escribe tu comentario aquí..." rows="5" required></textarea>
+                                <input type="hidden" id="postId" name="postId" value="${post.id}">
                                 <button type="submit">Comentar</button>
                             </form>
                         </div>
-                        <div class="comments-section">
+                        <div class="comments-section" id="commentsSection">
                             <h3>Comentarios</h3>
                             <c:forEach var="comentario" items="${comentarios}">
                                 <div class="comment">
