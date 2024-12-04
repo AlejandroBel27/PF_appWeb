@@ -71,7 +71,7 @@
                                         <!-- Opciones para admin -->
                                         <c:if test="${sessionScope.rol == 'Administrador'}">
                                             <div class="admin-options">
-                                                <button onclick="eliminarPost(${post.id})">Eliminar publicación</button>
+                                                <button class="btn-delete" onclick="eliminarPost(${post.id})">Eliminar publicación</button>
                                                 <button class="btn-pin" onclick="fijarPost(${post.id})">Fijar</button>
                                             </div>
                                         </c:if>

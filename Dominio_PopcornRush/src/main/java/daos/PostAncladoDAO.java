@@ -72,26 +72,32 @@ public class PostAncladoDAO implements IPostAncladoDAO {
     }
 
     @Override
-    public void eliminarPostAnclado(PostAnclado postAnclado) throws ExcepcionAT {
-        try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+public void eliminarPostAnclado(PostAnclado postAnclado) throws ExcepcionAT {
+    try {
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
 
-            em.remove(postAnclado);
+        // Cargar la entidad desde la base de datos
+        PostAnclado postManaged = em.find(PostAnclado.class, postAnclado.getId());
+        if (postManaged != null) {
+            em.remove(postManaged);
+        } else {
+            throw new IllegalArgumentException("La entidad no existe en la base de datos.");
+        }
 
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em != null) {
-                em.getTransaction().rollback();
-            }
-            System.err.println("Error al registrar post anclado: " + e.getMessage());
-            throw new ExcepcionAT("Error al obtener post anclado", e);
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+        em.getTransaction().commit();
+    } catch (Exception e) {
+        if (em != null) {
+            em.getTransaction().rollback();
+        }
+        System.err.println("Error al registrar post anclado: " + e.getMessage());
+        throw new ExcepcionAT("Error al obtener post anclado", e);
+    } finally {
+        if (em != null) {
+            em.close();
         }
     }
+}
 
     @Override
     public PostAnclado obtenerPostAnclado(String titulo) throws ExcepcionAT {

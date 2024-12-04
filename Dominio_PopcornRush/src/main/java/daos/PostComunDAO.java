@@ -77,7 +77,13 @@ public class PostComunDAO implements IPostComunDAO {
             em = emf.createEntityManager();
             em.getTransaction().begin();
 
-            em.remove(postComun);
+            // Cargar la entidad desde la base de datos
+            PostComun postManaged = em.find(PostComun.class, postComun.getId());
+            if (postManaged != null) {
+                em.remove(postManaged);
+            } else {
+                throw new IllegalArgumentException("La entidad no existe en la base de datos.");
+            }
 
             em.getTransaction().commit();
         } catch (Exception e) {

@@ -77,7 +77,7 @@
     </servlet>
     <servlet>
         <servlet-name>SvEliminarPost</servlet-name>
-        <servlet-class>SvEliminarPost</servlet-class>
+        <servlet-class>servlets.SvEliminarPost</servlet-class>
     </servlet>
     <!-- Mapeo de servlets -->
     <servlet-mapping>

@@ -65,31 +65,40 @@ public class SvEliminarPost extends HttpServlet {
             throws ServletException, IOException {
         IFachadaDominio fachada = new FachadaDominio();
 
+        // Configurar respuesta como JSON desde el inicio
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        // Lee el JSON del cuerpo de la solicitud
-        String jsonBody = request.getReader().lines().collect(Collectors.joining());
-        JSONObject json = new JSONObject(jsonBody);
-        int postId = json.getInt("postId");
-
-        // Aquí manejas la lógica de fijar la publicación (ej. actualizar DB)
+        JSONObject jsonResponse = new JSONObject();
         boolean success = false;
+
         try {
+            // Leer JSON de la solicitud
+            String jsonBody = request.getReader().lines().collect(Collectors.joining());
+            JSONObject json = new JSONObject(jsonBody);
+            int postId = json.getInt("postId");
+
+            // Lógica de eliminación
             PostComun comun = fachada.obtenerPostComunPorId(postId);
             PostAnclado anclado = fachada.obtenerPostAnclado(comun.getTitulo());
-            fachada.eliminarPostComun(comun); // Actualiza en la base de datos
-            fachada.eliminarPostAnclado(anclado);
-            success = true;
+
+            if (comun != null) {
+                fachada.eliminarPostComun(comun);
+            }
+            if (anclado != null) {
+                fachada.eliminarPostAnclado(anclado);
+            }
+
+            success = true; // Si llegó hasta aquí, fue exitoso
         } catch (Exception e) {
             e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"error\": \"Ocurrió un problema con la fachada.\"}");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Código 400
+            jsonResponse.put("error", "Ocurrió un problema al procesar la solicitud.");
         }
 
-        // Responde con JSON indicando el resultado
-        response.setContentType("application/json");
-        response.getWriter().write("{\"success\":" + success + "}");
+        // Responder con JSON
+        jsonResponse.put("success", success);
+        response.getWriter().write(jsonResponse.toString());
     }
 
     /**
